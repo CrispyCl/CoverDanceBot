@@ -5,16 +5,18 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 
+from config.config import Config, load_config
 from handlers import user_handlers
-
-API_TOKEN = "your-bot-token"
 
 
 async def main() -> None:
+    # Загружаем конфиг в переменную config
+    config: Config = load_config()
+
     # Инициализируем объект хранилища
     storage = MemoryStorage()
 
-    bot = Bot(token=API_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot = Bot(token=config.tg_bot.token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher(storage=storage)
 
     # Регистриуем роутеры

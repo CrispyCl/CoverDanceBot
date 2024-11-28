@@ -2,7 +2,7 @@
 exclude = .git,__pycache__,venv,migrations,__init__.py
 max-complexity = 12
 import-order-style = google
-application-import-names = handlers
+application-import-names = config, handlers
 max-line-length = 120
 black-config = pyproject.toml
 inline-quotes = "
