@@ -7,21 +7,26 @@ from aiogram.fsm.storage.memory import MemoryStorage
 
 from config.config import Config, load_config
 from handlers import user_handlers
+from logger.logger import get_logger
 
 
 async def main() -> None:
-    # Загружаем конфиг в переменную config
+    # Loading the config
     config: Config = load_config()
 
-    # Инициализируем объект хранилища
+    # Configuring the logging
+    logger = get_logger("main", config.logger)
+
+    logger.debug("Initialising the storage object...")
     storage = MemoryStorage()
 
-    bot = Bot(token=config.tg_bot.token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot = Bot(token=config.bot.token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher(storage=storage)
 
-    # Регистриуем роутеры
+    logger.debug("Registering routers...")
     dp.include_router(user_handlers.router)
 
+    logger.info("Bot was started")
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 

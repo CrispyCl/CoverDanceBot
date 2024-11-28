@@ -2,15 +2,19 @@ from dataclasses import dataclass
 
 from environs import Env
 
+from logger.logger import LoggerConfig
+
 
 @dataclass
-class TgBot:
-    token: str  # Токен для доступа к телеграм-боту
+class BotConfig:
+    token: str
+    debug: bool
 
 
 @dataclass
 class Config:
-    tg_bot: TgBot
+    bot: BotConfig
+    logger: LoggerConfig
 
 
 def load_config(path: str | None = None) -> Config:
@@ -26,7 +30,8 @@ def load_config(path: str | None = None) -> Config:
     env.read_env(path)
 
     return Config(
-        tg_bot=TgBot(token=env("BOT_TOKEN")),
+        bot=BotConfig(token=env("BOT_TOKEN", default=""), debug=env.bool("DEBUG", default=True)),
+        logger=LoggerConfig(debug=env.bool("DEBUG", default=True), file_path=env("LOGGER_FILE_PATH", default=None)),
     )
 
 
