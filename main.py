@@ -19,6 +19,7 @@ async def command_start_handler(message: Message) -> None:
     Args:
         message (Message):
     """
+
     await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!")
 
 
@@ -26,6 +27,7 @@ async def main() -> None:
     bot = Bot(token=API_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
     await dp.start_polling(bot)
+
 
 if __name__ == "__main__":
     asyncio.run(main())
