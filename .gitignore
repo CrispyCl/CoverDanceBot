@@ -74,6 +74,9 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+# Logs
+*.log
+
 # IDE
 .idea/
 .vscode/
