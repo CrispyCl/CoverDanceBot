@@ -47,7 +47,7 @@ def get_logger(name: str, cfg: LoggerConfig) -> logging.Logger:
                 "INFO": "green",
                 "WARNING": "yellow",
                 "ERROR": "red",
-                "CRITICAL": "red,bg_white",
+                "CRITICAL": "red,bg_black",
             },
         )
 
