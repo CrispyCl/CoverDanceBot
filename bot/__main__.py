@@ -7,9 +7,10 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.redis import Redis, RedisStorage
 
-from config.config import Config, load_config
-from handlers import user_handlers
-from logger.logger import get_logger
+from config import Config, load_config
+from database import PostgresDatabase
+from handlers import user_router
+from logger import get_logger
 
 
 async def shutdown(bot: Bot, dp: Dispatcher, logger: logging.Logger) -> None:
@@ -37,15 +38,22 @@ async def main() -> None:
     logger.info("Starting bot...")
 
     logger.debug("Initialising the storage object...")
-
     redis = Redis(host=config.redis.host, port=config.redis.port, db=config.redis.db)
     storage = RedisStorage(redis=redis)
+
+    logger.debug("Connecting to the database...")
+    db = PostgresDatabase(config=config.posgres)
+    try:
+        await db.init_db()
+    except Exception as e:
+        logger.fatal("Database connection failed: %s", str(e))
+        return
 
     bot = Bot(token=config.bot.token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher(storage=storage)
 
     logger.debug("Registering routers...")
-    dp.include_router(user_handlers.router)
+    dp.include_router(user_router)
 
     # Graceful shutdown handling
     logger.info("Bot was started")

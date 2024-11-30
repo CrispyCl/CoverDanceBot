@@ -1,4 +1,6 @@
 aiogram==3.15.0
-environs
+asyncpg
 colorlog
+environs
 redis
+sqlalchemy

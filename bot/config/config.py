@@ -2,7 +2,8 @@ from dataclasses import dataclass
 
 from environs import Env
 
-from logger.logger import LoggerConfig
+from database import PostgresConfig
+from logger import LoggerConfig
 
 
 @dataclass
@@ -23,6 +24,7 @@ class Config:
     bot: BotConfig
     logger: LoggerConfig
     redis: RedisConfig
+    posgres: PostgresConfig
 
 
 def load_config(path: str | None = None) -> Config:
@@ -44,6 +46,13 @@ def load_config(path: str | None = None) -> Config:
             host=env("REDIS_HOST", default="localhost"),
             port=env.int("REDIS_PORT", default=6379),
             db=env.int("REDIS_DB", default=0),
+        ),
+        posgres=PostgresConfig(
+            user=env("POSTGRES_USER", default=""),
+            password=env("POSTGRES_PASSWORD", default=""),
+            db_name=env("POSTGRES_DB", default=""),
+            host=env("POSTGRES_HOST", default="localhost"),
+            port=env.int("POSTGRES_PORT", default=5432),
         ),
     )
 
