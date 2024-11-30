@@ -15,6 +15,9 @@ class PostgresConfig:
     host: str
     port: int
 
+    def get_database_url(self) -> str:
+        return f"postgresql+asyncpg://{self.user}:{self.password}@{self.host}:{self.port}/{self.db_name}"
+
 
 class Database(DefaultDatabase):
     """Posgres Database class"""
@@ -22,7 +25,7 @@ class Database(DefaultDatabase):
     def __init__(self, config: PostgresConfig):
         self.config = config
         self.engine = create_async_engine(
-            f"postgresql+asyncpg://{config.user}:{config.password}@{config.host}:{config.port}/{config.db_name}",
+            config.get_database_url(),
             echo=False,
         )
         self.async_session = sessionmaker(bind=self.engine, class_=AsyncSession, expire_on_commit=False)

@@ -1,6 +1,8 @@
 aiogram==3.15.0
+alembic
 asyncpg
 colorlog
 environs
 redis
 sqlalchemy
+psycopg2

@@ -1,5 +1,5 @@
 [flake8]
-exclude = .git,__pycache__,venv,migrations
+exclude = .git,__pycache__,venv,versions
 max-complexity = 12
 import-order-style = google
 application-import-names = config, handlers, logger, database
