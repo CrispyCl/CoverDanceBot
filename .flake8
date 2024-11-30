@@ -1,8 +1,8 @@
 [flake8]
-exclude = .git,__pycache__,venv,migrations,__init__.py
+exclude = .git,__pycache__,venv,versions
 max-complexity = 12
 import-order-style = google
-application-import-names = config, handlers, logger
+application-import-names = config, handlers, logger, database
 max-line-length = 120
 black-config = pyproject.toml
 inline-quotes = "
