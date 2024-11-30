@@ -43,5 +43,9 @@ class Database(DefaultDatabase):
         async with self.async_session() as session:
             yield session
 
+    async def close(self):
+        """Close all database connections and cleanup."""
+        await self.engine.dispose()
+
 
 __all__ = ["Database", "PostgresConfig"]

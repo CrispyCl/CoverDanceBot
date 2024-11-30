@@ -8,12 +8,12 @@ from aiogram.enums import ParseMode
 from aiogram.fsm.storage.redis import Redis, RedisStorage
 
 from config import Config, load_config
-from database import PostgresDatabase
+from database import DefaultDatabase, PostgresDatabase
 from handlers import user_router
 from logger import get_logger
 
 
-async def shutdown(bot: Bot, dp: Dispatcher, logger: logging.Logger) -> None:
+async def shutdown(bot: Bot, dp: Dispatcher, logger: logging.Logger, redis: Redis | None, db: DefaultDatabase) -> None:
     """
     Gracefully shutdown bot and resources.
     """
@@ -22,9 +22,23 @@ async def shutdown(bot: Bot, dp: Dispatcher, logger: logging.Logger) -> None:
 
     logger.debug("Closing storage...")
     await dp.fsm.storage.close()
+    if redis:
+        try:
+            await redis.aclose()
+        except Exception as e:
+            logger.error("Failed to close Redis storage: %s", str(e))
 
-    logger.debug("Closing bot...")
-    await bot.session.close()
+    logger.debug("Stopping bot...")
+    try:
+        await bot.session.close()
+    except Exception as e:
+        logger.error("Failed to close bot session: %s", str(e))
+
+    logger.debug("Closing database connection...")
+    try:
+        await db.close()
+    except Exception as e:
+        logger.error("Failed to close database connection: %s", str(e))
 
     logger.info("Bot shut down successfully.")
 
@@ -39,6 +53,11 @@ async def main() -> None:
 
     logger.debug("Initialising the storage object...")
     redis = Redis(host=config.redis.host, port=config.redis.port, db=config.redis.db)
+    try:
+        await redis.ping()
+    except Exception as e:
+        logger.fatal("Storage initialisation failed: %s", str(e))
+        return
     storage = RedisStorage(redis=redis)
 
     logger.debug("Connecting to the database...")
@@ -64,7 +83,7 @@ async def main() -> None:
     except Exception as e:
         logger.error("An error occurred: %s", e)
     finally:
-        await shutdown(bot, dp, logger)
+        await shutdown(bot, dp, logger, redis, db)
 
 
 if __name__ == "__main__":

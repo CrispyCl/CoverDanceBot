@@ -21,5 +21,9 @@ class DefaultDatabase(ABC):
     async def get_session(self):
         """Context manager for sessions."""
 
+    @abstractmethod
+    async def close(self):
+        """Close all database connections and cleanup."""
+
 
 __all__ = ["Base", "DefaultDatabase"]
