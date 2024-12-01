@@ -71,7 +71,7 @@ Enter the environment variables in the .env file
 ### Launch redis and posgres
 
 ```bash
-docker compose up -d
+docker compose up -d redis postgres
 ```
 
 ### Go to the project folder
@@ -88,6 +88,6 @@ alembic upgrade head
 
 ### Run the project
 
-```
+```bash
 python .
 ```
