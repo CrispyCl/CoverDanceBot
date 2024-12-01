@@ -16,4 +16,4 @@ async def command_start_handler(message: Message) -> None:
     await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!")
 
 
-__all__ = ["command_start_handler"]
+__all__ = ["router"]

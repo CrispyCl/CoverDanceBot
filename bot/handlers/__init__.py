@@ -1,3 +1,4 @@
-# handlers
+from handlers.user import router as user_router
 
-from . import user as user_handlers
+
+__all__ = ["user_router"]
