@@ -75,13 +75,13 @@ async def main() -> None:
     dp.include_router(user_router)
 
     # Graceful shutdown handling
-    logger.info("Bot was started")
     try:
         await bot.delete_webhook(drop_pending_updates=True)
 
+        logger.info("Bot was started")
         await dp.start_polling(bot)
     except Exception as e:
-        logger.error("An error occurred: %s", e)
+        logger.fatal("An error occurred: %s", e)
     finally:
         await shutdown(bot, dp, logger, redis, db)
 
