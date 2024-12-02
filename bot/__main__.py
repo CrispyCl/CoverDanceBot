@@ -11,6 +11,7 @@ from config import Config, load_config
 from database import DefaultDatabase, PostgresDatabase
 from handlers import user_router
 from logger import get_logger
+from repository.user import UserRepository
 
 
 async def shutdown(bot: Bot, dp: Dispatcher, logger: logging.Logger, redis: Redis | None, db: DefaultDatabase) -> None:
@@ -70,12 +71,18 @@ async def main() -> None:
 
     bot = Bot(token=config.bot.token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher(storage=storage)
+    dp.workflow_data["logger"] = logger
+
+    logger.debug("Registering repositories...")
+    user_repoository = UserRepository(db)
+    dp.workflow_data["user_repository"] = user_repoository
 
     logger.debug("Registering routers...")
     dp.include_router(user_router)
 
     # Graceful shutdown handling
     try:
+        logger.debug("Deleting webhook...")
         await bot.delete_webhook(drop_pending_updates=True)
 
         logger.info("Bot was started")
