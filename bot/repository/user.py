@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from database import DefaultDatabase
 from exceptions import TokenDailyError, TokenNegativeError
 from models import User
-from repository.user import DefaultUserRepository, UserDataClass
+from repository import DefaultUserRepository, UserDataClass
 
 
 class UserRepository(DefaultUserRepository):
@@ -15,7 +15,7 @@ class UserRepository(DefaultUserRepository):
     def __init__(self, database: DefaultDatabase):
         self.db = database
 
-    async def create_user(self, user_data: UserDataClass) -> int:
+    async def create(self, user_data: UserDataClass) -> int:
         async with self.db.get_session() as session:
             session: AsyncSession
             if user_data.token_count > 10_000:
@@ -44,7 +44,7 @@ class UserRepository(DefaultUserRepository):
                 await session.rollback()
                 raise e
 
-    async def get_user(self, id: int) -> User:
+    async def get(self, id: int) -> User:
         async with self.db.get_session() as session:
             session: AsyncSession
             try:
@@ -54,7 +54,7 @@ class UserRepository(DefaultUserRepository):
             except Exception as e:
                 raise e
 
-    async def update_user_token(self, id: int, difference: int, is_daily: bool = False) -> User:
+    async def update_token(self, id: int, difference: int, is_daily: bool = False) -> User:
         async with self.db.get_session() as session:
             session: AsyncSession
             try:
@@ -79,7 +79,7 @@ class UserRepository(DefaultUserRepository):
                 await session.rollback()
                 raise e
 
-    async def update_user_role(self, id: int, is_staff: bool) -> User:
+    async def update_role(self, id: int, is_staff: bool) -> User:
         async with self.db.get_session() as session:
             session: AsyncSession
             try:

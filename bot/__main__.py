@@ -11,7 +11,7 @@ from config import Config, load_config
 from database import DefaultDatabase, PostgresDatabase
 from handlers import user_router
 from logger import get_logger
-from repository.user import UserRepository
+from repository import UserRepository
 
 
 async def shutdown(bot: Bot, dp: Dispatcher, logger: logging.Logger, redis: Redis | None, db: DefaultDatabase) -> None:

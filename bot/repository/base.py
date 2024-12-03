@@ -20,19 +20,19 @@ class DefaultUserRepository(ABC):
         self.db = database
 
     @abstractmethod
-    async def create_user(self, user_data: UserDataClass) -> int:
+    async def create(self, user_data: UserDataClass) -> int:
         """Create user method."""
 
     @abstractmethod
-    async def get_user(self, id: int) -> User:
+    async def get(self, id: int) -> User:
         """Get user method."""
 
     @abstractmethod
-    async def update_user_token(self, id: int, difference: int) -> User:
+    async def update_token(self, id: int, difference: int) -> User:
         """Update user token method."""
 
     @abstractmethod
-    async def update_user_role(self, id: int, is_staff: bool) -> User:
+    async def update_role(self, id: int, is_staff: bool) -> User:
         """Update user role method."""
 
 
