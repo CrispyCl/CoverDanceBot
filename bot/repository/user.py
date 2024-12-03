@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError, NoResultFound
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -51,6 +52,14 @@ class UserRepository(DefaultUserRepository):
                 return await session.get(User, id), None
             except NoResultFound:
                 return None, None
+            except Exception as e:
+                raise e
+
+    async def list(self) -> list[User]:
+        async with self.db.get_session() as session:
+            session: AsyncSession
+            try:
+                return (await session.execute(select(User).order_by(User.id))).scalars().all()
             except Exception as e:
                 raise e
 

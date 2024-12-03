@@ -28,6 +28,10 @@ class DefaultUserRepository(ABC):
         """Get user method."""
 
     @abstractmethod
+    async def list(self) -> list[User]:
+        """List users method."""
+
+    @abstractmethod
     async def update_token(self, id: int, difference: int) -> User:
         """Update user token method."""
 
