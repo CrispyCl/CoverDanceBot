@@ -12,6 +12,7 @@ from database import DefaultDatabase, PostgresDatabase
 from handlers import user_router
 from logger import get_logger
 from repository import UserRepository
+from service import UserService
 
 
 async def shutdown(bot: Bot, dp: Dispatcher, logger: logging.Logger, redis: Redis | None, db: DefaultDatabase) -> None:
@@ -74,8 +75,11 @@ async def main() -> None:
     dp.workflow_data["logger"] = logger
 
     logger.debug("Registering repositories...")
-    user_repoository = UserRepository(db)
-    dp.workflow_data["user_repository"] = user_repoository
+    user_repository = UserRepository(db)
+
+    logger.debug("Registering services...")
+    user_service = UserService(user_repository, logger)
+    dp.workflow_data["user_service"] = user_service
 
     logger.debug("Registering routers...")
     dp.include_router(user_router)

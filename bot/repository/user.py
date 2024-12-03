@@ -38,7 +38,7 @@ class UserRepository(DefaultUserRepository):
                 raise IntegrityError(
                     statement=e.statement,
                     params=e.params,
-                    orig="UserRepository: User already exists",
+                    orig="User already exists",
                 )
 
             except Exception as e:
@@ -49,9 +49,9 @@ class UserRepository(DefaultUserRepository):
         async with self.db.get_session() as session:
             session: AsyncSession
             try:
-                return await session.get(User, id), None
+                return await session.get(User, id)
             except NoResultFound:
-                return None, None
+                raise NoResultFound(f"User with id={id} does not exist")
             except Exception as e:
                 raise e
 
@@ -69,16 +69,16 @@ class UserRepository(DefaultUserRepository):
             try:
                 user = await session.get(User, id)
                 if user is None:
-                    raise NoResultFound(f"UserRepository: User with id={id} does not exist")
+                    raise NoResultFound(f"User with id={id} does not exist")
 
                 user.token_count += difference
                 if user.token_count > 10_000:
                     user.token_count = 10_000
                 elif user.token_count < 0:
-                    raise TokenNegativeError("UserRepository: Token count cannot be negative")
+                    raise TokenNegativeError("Token count cannot be negative")
                 if is_daily and difference > 0:
                     if user.token_last_receipt == datetime.now().date():
-                        raise TokenDailyError("UserRepository: User has already received tokens today")
+                        raise TokenDailyError("User has already received tokens today")
                     user.token_last_receipt = datetime.now()
                 await session.commit()
                 await session.refresh(user)
@@ -94,7 +94,7 @@ class UserRepository(DefaultUserRepository):
             try:
                 user = await session.get(User, id)
                 if user is None:
-                    raise NoResultFound(f"UserRepository: User with id={id} does not exist")
+                    raise NoResultFound(f"User with id={id} does not exist")
                 user.is_staff = is_staff
                 await session.commit()
                 await session.refresh(user)
