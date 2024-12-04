@@ -11,6 +11,7 @@ from config import Config, load_config
 from database import DefaultDatabase, PostgresDatabase
 from handlers import user_router
 from logger import get_logger
+from middleware import setup as setup_middlewares
 from repository import UserRepository
 from service import UserService
 
@@ -83,6 +84,9 @@ async def main() -> None:
 
     logger.debug("Registering routers...")
     dp.include_router(user_router)
+
+    logger.debug("Registering middlewares...")
+    setup_middlewares(dp, logger, user_service)
 
     # Graceful shutdown handling
     try:
