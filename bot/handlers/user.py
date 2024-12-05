@@ -1,6 +1,7 @@
 from aiogram import html, Router
 from aiogram.filters import CommandStart
 from aiogram.types import Message
+from aiogram.utils.i18n import gettext as _
 
 router = Router()
 
@@ -13,7 +14,7 @@ async def command_start_handler(message: Message) -> None:
         message (Message):
     """
 
-    await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!")
+    await message.answer(_("Hello, {name}!").format(name=html.bold(message.from_user.full_name)))
 
 
 __all__ = ["router"]
