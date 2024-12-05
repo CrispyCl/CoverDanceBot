@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 from database import DefaultDatabase
-from models import User
+from models import LanguageEnum, User
 
 
 @dataclass
@@ -38,6 +38,10 @@ class DefaultUserRepository(ABC):
     @abstractmethod
     async def update_role(self, id: int, is_staff: bool) -> User:
         """Update user role method."""
+
+    @abstractmethod
+    async def update_language(self, id: int, language: LanguageEnum) -> User:
+        """Update user language method."""
 
 
 __all__ = ["DefaultUserRepository", "UserDataClass"]
