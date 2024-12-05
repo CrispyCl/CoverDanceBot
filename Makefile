@@ -9,6 +9,10 @@ ALEMBIC := $(VENV_DIR)/Scripts/alembic
 
 DOCKER_BUILD_NAME := cover_dance_bot
 
+PYBABEL := pybabel
+LOCALES_DIR := locales
+LOCALES_DOMAIN := messages
+
 # Create virtual environment
 venv:
 	@echo "Creating virtual environment..."
@@ -68,3 +72,27 @@ docker-down:
 
 # Restart containers
 docker-restart: docker-down docker-up
+
+# Pybabel texts update
+texts-update:
+	@${PYBABEL} extract . \
+		-o ${LOCALES_DIR}/${LOCALES_DOMAIN}.pot \
+		--ignore-dirs=venv
+	@${PYBABEL} update \
+		-i ${LOCALES_DIR}/${LOCALES_DOMAIN}.pot \
+		-d ${LOCALES_DIR} \
+		-D ${LOCALES_DOMAIN}
+
+# Pybabel texts compile
+texts-compile:
+	@${PYBABEL} compile \
+		-d ${LOCALES_DIR} \
+		-D ${LOCALES_DOMAIN}
+
+# Pybabel create new language
+texts-create-language:
+	@${PYBABEL} init \
+		-i ${LOCALES_DIR}/${LOCALES_DOMAIN}.pot \
+		-d ${LOCALES_DIR} \
+		-D ${LOCALES_DOMAIN} \
+		-l ${language}

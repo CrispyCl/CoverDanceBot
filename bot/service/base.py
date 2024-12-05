@@ -30,12 +30,16 @@ class DefaultUserService(ABC):
         """List users method."""
 
     @abstractmethod
-    async def update_token(self, id: int, difference: int, is_daily: bool = False) -> User:
+    async def update_token(self, id: int, difference: int, is_daily: bool = False) -> bool:
         """Update user tocker method."""
 
     @abstractmethod
-    async def update_role(self, id: int, is_staff: bool) -> User:
+    async def update_role(self, id: int, is_staff: bool) -> bool:
         """Update user role method."""
+
+    @abstractmethod
+    async def update_language(self, id: int, language: str) -> bool:
+        """Update user language method."""
 
     @abstractmethod
     async def is_admin(self, id: int) -> bool:

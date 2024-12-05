@@ -6,6 +6,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.redis import Redis, RedisStorage
+from aiogram.utils.i18n import I18n
 
 from config import Config, load_config
 from database import DefaultDatabase, PostgresDatabase
@@ -85,8 +86,11 @@ async def main() -> None:
     logger.debug("Registering routers...")
     dp.include_router(user_router)
 
+    logger.debug("Initialising i18n...")
+    i18n = I18n(path="locales", default_locale="en", domain="messages")
+
     logger.debug("Registering middlewares...")
-    setup_middlewares(dp, logger, user_service)
+    setup_middlewares(dp, logger, user_service, i18n)
 
     # Graceful shutdown handling
     try:
