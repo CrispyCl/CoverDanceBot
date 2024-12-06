@@ -87,7 +87,11 @@ async def main() -> None:
     dp.include_router(user_router)
 
     logger.debug("Initialising i18n...")
-    i18n = I18n(path="locales", default_locale="en", domain="messages")
+    try:
+        i18n = I18n(path="locales", default_locale="en", domain="messages")
+    except Exception as e:
+        logger.fatal("Initialising failed: %s", str(e))
+        return
 
     logger.debug("Registering middlewares...")
     setup_middlewares(dp, logger, user_service, i18n)
