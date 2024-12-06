@@ -33,3 +33,6 @@ Thumbs.db
 logs/
 *.log
 *.bak
+
+# Ignore translation files
+*.mo

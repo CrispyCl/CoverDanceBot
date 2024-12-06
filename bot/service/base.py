@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from logging import Logger
 
 from models import User
-from repository.user import DefaultUserRepository
+from repository import DefaultUserRepository
 
 
 class DefaultUserService(ABC):
