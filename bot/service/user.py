@@ -4,7 +4,7 @@ from sqlalchemy.exc import IntegrityError, NoResultFound
 
 from exceptions import TokenDailyError, TokenNegativeError
 from models import LanguageEnum, User
-from repository.user import UserDataClass, UserRepository
+from repository import UserDataClass, UserRepository
 from service import DefaultUserService
 
 
