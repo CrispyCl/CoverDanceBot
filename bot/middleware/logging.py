@@ -3,6 +3,7 @@ from logging import Logger
 from typing import Any, Awaitable, Callable, Dict
 
 from aiogram import BaseMiddleware
+from aiogram.dispatcher.event.bases import UNHANDLED
 from aiogram.types import Message, Update
 
 
@@ -19,12 +20,13 @@ class LoggingMiddleware(BaseMiddleware):
     ):
         loop = asyncio.get_running_loop()
         start_time = loop.time()
+        handled = False
         try:
             result = await handler(update, data)
+            handled = result is not UNHANDLED
             return result
         finally:
             duration = (loop.time() - start_time) * 1000
-            handled = duration != 0
             format_string = '"%s" from user %d. Duration %d ms'
             text = ""
             user_id = 0
