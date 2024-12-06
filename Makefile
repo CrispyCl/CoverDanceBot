@@ -6,10 +6,10 @@ PIP := $(VENV_DIR)/Scripts/pip
 BLACK := $(VENV_DIR)/Scripts/black
 FLAKE8 := $(VENV_DIR)/Scripts/flake8
 ALEMBIC := $(VENV_DIR)/Scripts/alembic
+PYBABEL := $(VENV_DIR)/Scripts/pybabel
 
 DOCKER_BUILD_NAME := cover_dance_bot
 
-PYBABEL := pybabel
 LOCALES_DIR := locales
 LOCALES_DOMAIN := messages
 
