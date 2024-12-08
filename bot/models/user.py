@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from enum import Enum as PyEnum
 
-from sqlalchemy import Boolean, Column, Date, DateTime, Enum, Integer
+from sqlalchemy import Boolean, Column, Date, DateTime, Enum, Integer, orm
 
 from database import Base
 
@@ -26,6 +26,8 @@ class User(Base):
         return (
             f"<User(id={self.id}, language={self.language}, token_count={self.token_count}, is_staff={self.is_staff})>"
         )
+
+    covers = orm.relationship("Cover", back_populates="author", lazy="dynamic")
 
 
 __all__ = ["User", "LanguageEnum"]

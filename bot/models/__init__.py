@@ -1,4 +1,5 @@
+from models.cover import Cover, DifficultEnum
 from models.user import LanguageEnum, User
 
 
-__all__ = ["User", "LanguageEnum"]
+__all__ = ["Cover", "User", "DifficultEnum", "LanguageEnum"]
