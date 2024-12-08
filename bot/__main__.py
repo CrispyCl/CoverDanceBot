@@ -13,7 +13,7 @@ from database import DefaultDatabase, PostgresDatabase
 from handlers import user_router
 from logger import get_logger
 from middleware import setup as setup_middlewares
-from repository import UserRepository
+from repository import CoverRepository, UserRepository
 from service import UserService
 
 
@@ -78,6 +78,7 @@ async def main() -> None:
 
     logger.debug("Registering repositories...")
     user_repository = UserRepository(db)
+    cover_repository = CoverRepository(db)  # noqa: F841
 
     logger.debug("Registering services...")
     user_service = UserService(user_repository, logger)
