@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-05 19:59+0300\n"
+"POT-Creation-Date: 2024-12-08 17:03+0300\n"
 "PO-Revision-Date: 2024-12-05 19:32+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,6 +18,45 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.16.0\n"
 
-#: bot/handlers/user.py:16
-msgid "Hello, {name}!"
+#: bot/handlers/admin.py:15
+msgid "Add admin"
 msgstr ""
+
+#: bot/handlers/admin.py:16
+msgid "Add video"
+msgstr ""
+
+#: bot/handlers/admin.py:19
+msgid ""
+"Welcome to the CoverDanceBot control menu.\n"
+"\n"
+"Click add admin to add a user who can makechanges to the database.\n"
+"\n"
+"Press /help in the menu to see a description of all the actionsavailable "
+"to you."
+msgstr ""
+
+#: bot/handlers/admin.py:30
+msgid "This is the /help menu"
+msgstr ""
+
+#: bot/handlers/user.py:19
+msgid "Find a practical video"
+msgstr ""
+
+#: bot/handlers/user.py:20
+msgid "Balance"
+msgstr ""
+
+#: bot/handlers/user.py:23
+msgid ""
+"Hi, this is a bot for finding practice videos by (what we have...).\n"
+"\n"
+"Select Video Search to get started, or press /help to see a description "
+"of all available actions."
+msgstr ""
+
+#: bot/handlers/user.py:33
+msgid "This is the user help section"
+msgstr ""
+
