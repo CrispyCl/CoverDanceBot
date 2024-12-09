@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from logging import Logger
 
-from models import User
-from repository import DefaultUserRepository
+from models import Cover, User
+from repository import CoverDataClass, DefaultCoverRepository, DefaultUserRepository
 
 
 class DefaultUserService(ABC):
@@ -50,4 +50,44 @@ class DefaultUserService(ABC):
         """Is super admin check method."""
 
 
-__all__ = ["DefaultUserService"]
+class DefaultCoverService(ABC):
+    """Abstract CoverService class"""
+
+    @abstractmethod
+    def __init__(self, repository: DefaultCoverRepository, logger: Logger):
+        self.repo = repository
+        self.log = logger
+
+    @abstractmethod
+    async def create(self, cover_data: CoverDataClass) -> int:
+        """Create cover method."""
+
+    @abstractmethod
+    async def get_one(self, id: int) -> Cover:
+        """Get one cover method."""
+
+    @abstractmethod
+    async def get(self) -> list[Cover]:
+        """Get covers method."""
+
+    @abstractmethod
+    async def find(
+        self,
+        gender: str,
+        members: int,
+        difficult: str,
+        start_year: int,
+        end_year: int,
+    ) -> list[Cover]:
+        """Find covers method"""
+
+    @abstractmethod
+    async def update(self, id: int, cover_data: CoverDataClass) -> Cover:
+        """Update cover method."""
+
+    @abstractmethod
+    async def delete(self, id: int) -> bool:
+        """Delete cover method."""
+
+
+__all__ = ["DefaultCoverService", "DefaultUserService"]
