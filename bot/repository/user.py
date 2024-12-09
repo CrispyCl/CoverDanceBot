@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from database import DefaultDatabase
 from exceptions import TokenDailyError, TokenNegativeError
-from models import User
+from models import LanguageEnum, User
 from repository import DefaultUserRepository, UserDataClass
 
 
@@ -96,6 +96,22 @@ class UserRepository(DefaultUserRepository):
                 if user is None:
                     raise NoResultFound(f"User with id={id} does not exist")
                 user.is_staff = is_staff
+                await session.commit()
+                await session.refresh(user)
+                return user
+
+            except Exception as e:
+                await session.rollback()
+                raise e
+
+    async def update_language(self, id: int, language: LanguageEnum) -> User:
+        async with self.db.get_session() as session:
+            session: AsyncSession
+            try:
+                user = await session.get(User, id)
+                if user is None:
+                    raise NoResultFound(f"User with id={id} does not exist")
+                user.language = language
                 await session.commit()
                 await session.refresh(user)
                 return user

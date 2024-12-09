@@ -3,8 +3,8 @@ from logging import Logger
 from sqlalchemy.exc import IntegrityError, NoResultFound
 
 from exceptions import TokenDailyError, TokenNegativeError
-from models import User
-from repository.user import UserDataClass, UserRepository
+from models import LanguageEnum, User
+from repository import UserDataClass, UserRepository
 from service import DefaultUserService
 
 
@@ -73,6 +73,16 @@ class UserService(DefaultUserService):
             await self.repo.update_role(id, is_staff)
             return True
         except NoResultFound as e:
+            self.log.warning("UserRepository: %s" % e)
+        except Exception as e:
+            self.log.error("UserRepository: %s" % e)
+        return False
+
+    async def update_language(self, id: int, language: str) -> bool:
+        try:
+            await self.repo.update_language(id, LanguageEnum(language))
+            return True
+        except (NoResultFound, ValueError) as e:
             self.log.warning("UserRepository: %s" % e)
         except Exception as e:
             self.log.error("UserRepository: %s" % e)

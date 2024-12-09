@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
 from database import Base, DefaultDatabase
-from models import User  # noqa: F401
+from models import Cover, User  # noqa: F401
 
 
 @dataclass

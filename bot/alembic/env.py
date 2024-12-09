@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, pool
 
 from config import load_config
 from database import Base
-from models import User  # noqa: F401
+from models import Cover, User  # noqa: F401
 
 db_config = load_config()
 database_url = db_config.posgres.get_database_url()

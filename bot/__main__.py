@@ -6,13 +6,15 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.redis import Redis, RedisStorage
+from aiogram.utils.i18n import I18n
 
 from config import Config, load_config
 from database import DefaultDatabase, PostgresDatabase
 from handlers import user_router
 from logger import get_logger
-from repository import UserRepository
-from service import UserService
+from middleware import setup as setup_middlewares
+from repository import CoverRepository, UserRepository
+from service import CoverService, UserService
 
 
 async def shutdown(bot: Bot, dp: Dispatcher, logger: logging.Logger, redis: Redis | None, db: DefaultDatabase) -> None:
@@ -76,13 +78,26 @@ async def main() -> None:
 
     logger.debug("Registering repositories...")
     user_repository = UserRepository(db)
+    cover_repository = CoverRepository(db)
 
     logger.debug("Registering services...")
     user_service = UserService(user_repository, logger)
     dp.workflow_data["user_service"] = user_service
+    cover_service = CoverService(cover_repository, logger)
+    dp.workflow_data["cover_service"] = cover_service
 
     logger.debug("Registering routers...")
     dp.include_router(user_router)
+
+    logger.debug("Initialising i18n...")
+    try:
+        i18n = I18n(path="locales", default_locale="en", domain="messages")
+    except Exception as e:
+        logger.fatal("Initialising failed: %s", str(e))
+        return
+
+    logger.debug("Registering middlewares...")
+    setup_middlewares(dp, logger, user_service, i18n)
 
     # Graceful shutdown handling
     try:
