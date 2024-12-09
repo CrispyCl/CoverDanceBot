@@ -34,7 +34,7 @@ class Cover(Base):
             f"publish_date={self.publish_date})"
         )
 
-    author = orm.relationship("User", back_populates="covers")
+    author = orm.relationship("User", back_populates="covers", lazy="joined")
 
 
 __all__ = ["Cover", "DifficultEnum"]
