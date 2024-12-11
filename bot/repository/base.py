@@ -10,6 +10,7 @@ from models import Cover, DifficultEnum, LanguageEnum, User
 @dataclass
 class UserDataClass:
     id: int
+    username: str
     token_count: int = 2_000
     is_staff: bool = False
 
@@ -43,12 +44,20 @@ class DefaultUserRepository(ABC):
         """Create user method."""
 
     @abstractmethod
-    async def get(self, id: int) -> User:
-        """Get user method."""
+    async def get_one(self, id: int) -> User:
+        """Get user by id method."""
 
     @abstractmethod
-    async def list(self) -> list[User]:
-        """List users method."""
+    async def get_by_username(self, username: str) -> User:
+        """Get user by username method."""
+
+    @abstractmethod
+    async def get(self) -> list[User]:
+        """Get users method."""
+
+    @abstractmethod
+    async def update_username(self, id: int, username: str) -> User:
+        """Update user username method."""
 
     @abstractmethod
     async def update_token(self, id: int, difference: int) -> User:

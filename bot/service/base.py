@@ -14,24 +14,32 @@ class DefaultUserService(ABC):
         self.log = logger
 
     @abstractmethod
-    async def create(self, id: int, is_staff: bool = False, token_count: int = 2_000) -> int:
+    async def create(self, id: int, username: str, is_staff: bool = False, token_count: int = 2_000) -> int:
         """Create user method."""
 
     @abstractmethod
-    async def get(self, id: int) -> User:
-        """Get user method."""
+    async def get_one(self, id: int) -> User:
+        """Get user by id method."""
 
     @abstractmethod
-    async def get_or_create(self, id: int) -> User:
+    async def get_or_create(self, id: int, username: str) -> User:
         """Get or create user method."""
 
     @abstractmethod
-    async def list(self) -> list[User]:
-        """List users method."""
+    async def get_by_username(self, username: str) -> User:
+        """Get user by username method."""
+
+    @abstractmethod
+    async def get(self) -> list[User]:
+        """Get users method."""
+
+    @abstractmethod
+    async def update_username(self, id: int, username: str) -> User:
+        """Update user username method."""
 
     @abstractmethod
     async def update_token(self, id: int, difference: int, is_daily: bool = False) -> bool:
-        """Update user tocker method."""
+        """Update user token method."""
 
     @abstractmethod
     async def update_role(self, id: int, is_staff: bool) -> bool:
