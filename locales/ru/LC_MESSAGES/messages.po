@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-08 17:03+0300\n"
+"POT-Creation-Date: 2024-12-11 15:07+0300\n"
 "PO-Revision-Date: 2024-12-05 19:32+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,17 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.16.0\n"
 
-#: bot/handlers/admin.py:15
-msgid "Add admin"
-msgstr "Добавить админа"
-
-#: bot/handlers/admin.py:16
-msgid "Add video"
-msgstr "Добавить видео"
-
-#: bot/handlers/admin.py:19
+#: bot/handlers/super_admin.py:28
 msgid ""
-"Welcome to the CoverDanceBot control menu.\n"
+"Welcome to the CoverDanceBot admin panel.\n"
 "\n"
 "Click add admin to add a user who can makechanges to the database.\n"
 "\n"
@@ -43,31 +35,116 @@ msgstr ""
 "\n"
 "Нажмите /help в меню, чтобы увидеть описание всех доступных вам команд."
 
-#: bot/handlers/admin.py:30
+#: bot/handlers/super_admin.py:40
 msgid "This is the /help menu"
 msgstr "Это меню /help"
 
-#: bot/handlers/user.py:19
-msgid "Find a practical video"
-msgstr "Найти практик-видео"
+#: bot/handlers/super_admin.py:43 bot/keyboards/super_admin.py:8
+msgid "Admin management"
+msgstr "Управление админами"
 
-#: bot/handlers/user.py:20
-msgid "Balance"
-msgstr "Баланс"
+#: bot/handlers/super_admin.py:47 bot/handlers/super_admin.py:75
+msgid "Admins: \n"
+msgstr "Список админов\n"
 
-#: bot/handlers/user.py:23
+#: bot/handlers/super_admin.py:55 bot/handlers/super_admin.py:62
+msgid "Pleace enter the user id"
+msgstr "Введите id пользователя"
+
+#: bot/handlers/super_admin.py:88 bot/handlers/super_admin.py:98
+msgid "Pleace enter correct user id"
+msgstr "Пожалуйста, введите корректный id пользователя"
+
+#: bot/handlers/super_admin.py:90
+msgid "This user is already an admin, try again or press back"
+msgstr ""
+"Этот пользователь уже является админом, попробуйте ещё раз или нажмите "
+"Назад"
+
+#: bot/handlers/super_admin.py:94
+msgid "Admin successfully added"
+msgstr "Админ успешно добавлен"
+
+#: bot/handlers/user.py:28
 msgid ""
 "Hi, this is a bot for finding practice videos by (what we have...).\n"
 "\n"
 "Select Video Search to get started, or press /help to see a description "
 "of all available actions."
 msgstr ""
-"Привет! Это бот для поиска практик-видео по (что у нас...)\n"
+"Привет! Это бот для поиска практик-видео по (что у нас там...).\n"
 "\n"
-"Выберите Поиск видео, чтобы начать, или нажмите /help, чтобы увидеть "
+"Выберите [Поиск видео], чтобы начать или нажмите /help, чтобы увидеть "
 "описание всех доступных действий."
 
-#: bot/handlers/user.py:33
-msgid "This is the user help section"
-msgstr "Это меню помощи пользователю"
+#: bot/handlers/user.py:42
+msgid ""
+"<b>User assistance menu</b>\n"
+"\n"
+"<b>/start</b> - Start bot or update language settings\n"
+"\n"
+"<b>[Find practice videos]</b> - search for practice videos based on year,"
+" gender and dance direction\n"
+"\n"
+"<b>[Balance]</b> - go to the balance menu\n"
+"\n"
+"<b>[Daily Bonus]</b> - Receive a daily bonus in the form of tokens for "
+"balance\n"
+"\n"
+"<b>[Change Language]</b>- Change the language of the bot interface.\n"
+"\n"
+msgstr ""
+"<b>Меню помощи пользователю</b>\n"
+"\n"
+"<b>/start</b> - Запуск бота или обновление языковых параметров\n"
+"\n"
+"<b>[Найти практик-видео]</b> - поиск практик-видео, основанный на "
+"актуальности поле и направлению танцев\n"
+"\n"
+"<b>[Баланс]</b> - переход в меню баланса\n"
+"\n"
+"<b>[Ежедневный бонус]</b> - Получение ежедневного бонуса в виде токенов "
+"на баланс\n"
+"\n"
+"<b>[Изменить язык]</b> - Изменение языковых настроек интерфейса бота "
 
+#: bot/handlers/user.py:59 bot/keyboards/super_admin.py:9
+#: bot/keyboards/user.py:10
+msgid "🈹Change language"
+msgstr "🈹Изменить язык"
+
+#: bot/handlers/user.py:62
+msgid "Choose the neccesary language"
+msgstr "Выберите необходимый язык"
+
+#: bot/handlers/user.py:70 bot/handlers/user.py:78
+msgid "Your language has been changed"
+msgstr "Ваш язык был изменён на Русский"
+
+#: bot/keyboards/super_admin.py:8
+msgid "Add video"
+msgstr "Добавить видео"
+
+#: bot/keyboards/super_admin.py:18
+msgid "Add admin"
+msgstr "Добавить админа"
+
+#: bot/keyboards/super_admin.py:19
+msgid "Delete admin"
+msgstr "Удалить админа"
+
+#: bot/keyboards/super_admin.py:21 bot/keyboards/super_admin.py:29
+msgid "Back"
+msgstr "Назад"
+
+#: bot/keyboards/user.py:8
+msgid "🔍Find practice video"
+msgstr "🔍Найти практик-видео"
+
+#: bot/keyboards/user.py:9
+msgid "💰Balance"
+msgstr "💰Баланс"
+
+#: bot/keyboards/user.py:9
+msgid "✨Daily bonus"
+msgstr "✨Ежедневный бонус"

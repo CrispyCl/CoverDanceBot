@@ -77,8 +77,11 @@ async def main() -> None:
     dp = Dispatcher(storage=storage)
     dp.workflow_data["logger"] = logger
 
-    logger.debug("Loading keyboards...")
-    await set_main_menu(bot)
+    logger.debug("Loading menu...")
+    try:
+        await set_main_menu(bot)
+    except Exception as e:
+        logger.fatal("Menu loading failed: %s", str(e))
 
     logger.debug("Registering repositories...")
     user_repository = UserRepository(db)

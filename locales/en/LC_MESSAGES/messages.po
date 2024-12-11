@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-08 17:03+0300\n"
+"POT-Creation-Date: 2024-12-11 15:07+0300\n"
 "PO-Revision-Date: 2024-12-05 19:32+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,17 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.16.0\n"
 
-#: bot/handlers/admin.py:15
-msgid "Add admin"
-msgstr ""
-
-#: bot/handlers/admin.py:16
-msgid "Add video"
-msgstr ""
-
-#: bot/handlers/admin.py:19
+#: bot/handlers/super_admin.py:28
 msgid ""
-"Welcome to the CoverDanceBot control menu.\n"
+"Welcome to the CoverDanceBot admin panel.\n"
 "\n"
 "Click add admin to add a user who can makechanges to the database.\n"
 "\n"
@@ -36,19 +28,35 @@ msgid ""
 "to you."
 msgstr ""
 
-#: bot/handlers/admin.py:30
+#: bot/handlers/super_admin.py:40
 msgid "This is the /help menu"
 msgstr ""
 
-#: bot/handlers/user.py:19
-msgid "Find a practical video"
+#: bot/handlers/super_admin.py:43 bot/keyboards/super_admin.py:8
+msgid "Admin management"
 msgstr ""
 
-#: bot/handlers/user.py:20
-msgid "Balance"
+#: bot/handlers/super_admin.py:47 bot/handlers/super_admin.py:75
+msgid "Admins: \n"
 msgstr ""
 
-#: bot/handlers/user.py:23
+#: bot/handlers/super_admin.py:55 bot/handlers/super_admin.py:62
+msgid "Pleace enter the user id"
+msgstr ""
+
+#: bot/handlers/super_admin.py:88 bot/handlers/super_admin.py:98
+msgid "Pleace enter correct user id"
+msgstr ""
+
+#: bot/handlers/super_admin.py:90
+msgid "This user is already an admin, try again or press back"
+msgstr ""
+
+#: bot/handlers/super_admin.py:94
+msgid "Admin successfully added"
+msgstr ""
+
+#: bot/handlers/user.py:28
 msgid ""
 "Hi, this is a bot for finding practice videos by (what we have...).\n"
 "\n"
@@ -56,7 +64,306 @@ msgid ""
 "of all available actions."
 msgstr ""
 
-#: bot/handlers/user.py:33
-msgid "This is the user help section"
+#: bot/handlers/user.py:42
+msgid ""
+"<b>User assistance menu</b>\n"
+"\n"
+"<b>/start</b> - Start bot or update language settings\n"
+"\n"
+"<b>[Find practice videos]</b> - search for practice videos based on year,"
+" gender and dance direction\n"
+"\n"
+"<b>[Balance]</b> - go to the balance menu\n"
+"\n"
+"<b>[Daily Bonus]</b> - Receive a daily bonus in the form of tokens for "
+"balance\n"
+"\n"
+"<b>[Change Language]</b>- Change the language of the bot interface.\n"
+"\n"
 msgstr ""
+
+#: bot/handlers/user.py:59 bot/keyboards/super_admin.py:9
+#: bot/keyboards/user.py:10
+msgid "🈹Change language"
+msgstr ""
+
+#: bot/handlers/user.py:62
+msgid "Choose the neccesary language"
+msgstr ""
+
+#: bot/handlers/user.py:70 bot/handlers/user.py:78
+msgid "Your language has been changed"
+msgstr "Your language has been changed to English"
+
+#: bot/keyboards/super_admin.py:8
+msgid "Add video"
+msgstr ""
+
+#: bot/keyboards/super_admin.py:18
+msgid "Add admin"
+msgstr ""
+
+#: bot/keyboards/super_admin.py:19
+msgid "Delete admin"
+msgstr ""
+
+#: bot/keyboards/super_admin.py:21 bot/keyboards/super_admin.py:29
+msgid "Back"
+msgstr ""
+
+#: bot/keyboards/user.py:8
+msgid "🔍Find practice video"
+msgstr ""
+
+#: bot/keyboards/user.py:9
+msgid "💰Balance"
+msgstr ""
+
+#: bot/keyboards/user.py:9
+msgid "✨Daily bonus"
+msgstr ""
+
+#~ msgid ""
+#~ "Welcome to the CoverDanceBot control menu.\n"
+#~ "\n"
+#~ "Click add admin to add a user who can makechanges to the database.\n"
+#~ "\n"
+#~ "Press /help in the menu to see "
+#~ "a description of all the "
+#~ "actionsavailable to you."
+#~ msgstr ""
+
+#~ msgid "Pleace enter the username of the new admin in the format @user"
+#~ msgstr ""
+
+#~ msgid "List of admins: "
+#~ msgstr ""
+
+#~ msgid "All states are reset"
+#~ msgstr ""
+
+#~ msgid "Your language has been changed to English"
+#~ msgstr ""
+
+#~ msgid "Admins: \n"
+#~ msgstr ""
+
+#~ msgid "This user is already an admin"
+#~ msgstr ""
+
+#~ msgid "Find a practical video"
+#~ msgstr ""
+
+#~ msgid "Balance"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Hi, this is a bot for finding practice videos by (what we have...).\n"
+#~ "\n"
+#~ "Select Video Search to get started, "
+#~ "or press /help to see a "
+#~ "description of all available actions."
+#~ msgstr ""
+
+#~ msgid "Cancel"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Admins: \n"
+#~ "\n"
+#~ msgstr ""
+
+#~ msgid "🔍Find practice video"
+#~ msgstr ""
+
+#~ msgid "💰Balance"
+#~ msgstr ""
+
+#~ msgid "✨Daily bonus"
+#~ msgstr ""
+
+#~ msgid "🈹Change language"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Hi, this is a bot for finding practice videos by (what we have...).\n"
+#~ "\n"
+#~ msgstr ""
+
+#~ msgid "Find practice video"
+#~ msgstr ""
+
+#~ msgid "Daily bonus"
+#~ msgstr ""
+
+#~ msgid "This is the user help section"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "<b>User assistance menu<b>\n"
+#~ "\n"
+#~ "<i>/start<i> - Start bot or update language settings\n"
+#~ "\n"
+#~ "<i>[Find practice videos]<i> - search "
+#~ "for practice videos based on year, "
+#~ "gender and dance direction\n"
+#~ "\n"
+#~ "<i>[Баланс]<i> - переход в меню баланса\n"
+#~ "\n"
+#~ "<i>[Balance]<i> - go to the balance menu\n"
+#~ "\n"
+#~ "<i>[Daily Bonus]<i> - Receive a daily"
+#~ " bonus in the form of tokens "
+#~ "for balance\n"
+#~ "\n"
+#~ "<i>[Change Language]<i> - Change the "
+#~ "language of the bot interface.!Attention! "
+#~ "After changing the language, be sure "
+#~ "to execute /start"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "<b>User assistance menu<b>\n"
+#~ "\n"
+#~ "<i>/start<i> - Start bot or update language settings\n"
+#~ "\n"
+#~ "<i>[Find practice videos]<i> - search "
+#~ "for practice videos based on year, "
+#~ "gender and dance direction\n"
+#~ "\n"
+#~ "<i>[Balance]<i> - go to the balance menu\n"
+#~ "\n"
+#~ "<i>[Daily Bonus]<i> - Receive a daily"
+#~ " bonus in the form of tokens "
+#~ "for balance\n"
+#~ "\n"
+#~ "<i>[Change Language]<i> - Change the "
+#~ "language of the bot interface.!Attention! "
+#~ "After changing the language, be sure "
+#~ "to execute /start"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "<b>User assistance menu<b>\n"
+#~ "\n"
+#~ "<i>/start<i> - Start bot or update language settings\n"
+#~ "\n"
+#~ "<i>[Find practice videos]<i> - search "
+#~ "for practice videos based on year, "
+#~ "gender and dance direction\n"
+#~ "\n"
+#~ "<i>[Balance]<i> - go to the balance menu\n"
+#~ "\n"
+#~ "<i>[Daily Bonus]<i> - Receive a daily"
+#~ " bonus in the form of tokens "
+#~ "for balance\n"
+#~ "\n"
+#~ "<i>[Change Language]<i> - Change the "
+#~ "language of the bot interface.!Attention! "
+#~ "After changing the language, be sure "
+#~ "to execute <i>/start<i>"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "<b>User assistance menu<b>\n"
+#~ "\n"
+#~ "<i>/start<i>- Start bot or update language settings\n"
+#~ "\n"
+#~ "<i>[Find practice videos]<i>- search for "
+#~ "practice videos based on year, gender"
+#~ " and dance direction\n"
+#~ "\n"
+#~ "<i>[Balance]<i>- go to the balance menu\n"
+#~ "\n"
+#~ "<i>[Daily Bonus]<i>- Receive a daily "
+#~ "bonus in the form of tokens for"
+#~ " balance\n"
+#~ "\n"
+#~ "<i>[Change Language]<i>- Change the language of the bot interface.\n"
+#~ "\n"
+#~ "<b>!Attention!<b>After changing the language, "
+#~ "be sure to execute <i>/start<i>"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "<b>User assistance menu</b>\n"
+#~ "\n"
+#~ "<i>/start</i>- Start bot or update language settings\n"
+#~ "\n"
+#~ "<i>[Find practice videos]</i>- search for "
+#~ "practice videos based on year, gender"
+#~ " and dance direction\n"
+#~ "\n"
+#~ "<i>[Balance]</i>- go to the balance menu\n"
+#~ "\n"
+#~ "<i>[Daily Bonus]</i>- Receive a daily "
+#~ "bonus in the form of tokens for"
+#~ " balance\n"
+#~ "\n"
+#~ "<i>[Change Language]</i>- Change the language of the bot interface.\n"
+#~ "\n"
+#~ "<b>!Attention!</b>After changing the language, "
+#~ "be sure to execute <i>/start</i>"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "<b>User assistance menu</b>\n"
+#~ "\n"
+#~ "<i>/start</b> - Start bot or update language settings\n"
+#~ "\n"
+#~ "<b>[Find practice videos]</b> - search "
+#~ "for practice videos based on year, "
+#~ "gender and dance direction\n"
+#~ "\n"
+#~ "<b>[Balance]</b> - go to the balance menu\n"
+#~ "\n"
+#~ "<b>[Daily Bonus]</b> - Receive a daily"
+#~ " bonus in the form of tokens "
+#~ "for balance\n"
+#~ "\n"
+#~ "<b>[Change Language]</b>- Change the language of the bot interface.\n"
+#~ "\n"
+#~ "<b>!Attention!</b> After changing the "
+#~ "language, be sure to execute "
+#~ "<i>/start</i>"
+#~ msgstr ""
+
+#~ msgid "Please select the required language"
+#~ msgstr ""
+
+#~ msgid "Choose the neccesary language"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "<b>User assistance menu</b>\n"
+#~ "\n"
+#~ "<b>/start</b> - Start bot or update language settings\n"
+#~ "\n"
+#~ "<b>[Find practice videos]</b> - search "
+#~ "for practice videos based on year, "
+#~ "gender and dance direction\n"
+#~ "\n"
+#~ "<b>[Balance]</b> - go to the balance menu\n"
+#~ "\n"
+#~ "<b>[Daily Bonus]</b> - Receive a daily"
+#~ " bonus in the form of tokens "
+#~ "for balance\n"
+#~ "\n"
+#~ "<b>[Change Language]</b>- Change the language of the bot interface.\n"
+#~ "\n"
+#~ "<b>!Attention!</b> After changing the "
+#~ "language, be sure to execute "
+#~ "<i>/start</i>"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Hi, this is a bot for finding practice videos by (what we have...).\n"
+#~ "\n"
+#~ "Select Video Search to get started, "
+#~ "or press /help to see a "
+#~ "descriptionof all available actions."
+#~ msgstr ""
+
+#~ msgid "Change language"
+#~ msgstr ""
 
