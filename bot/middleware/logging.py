@@ -25,12 +25,15 @@ class LoggingMiddleware(BaseMiddleware):
             result = await handler(update, data)
             handled = result is not UNHANDLED
             return result
+
+        except Exception as e:
+            self.logger.error("<%d> %-7s: %s", update.update_id, "error", str(e))
+
         finally:
             duration = (loop.time() - start_time) * 1000
-            format_string = '"%s" from user %d. Duration %d ms'
+            format_string = '<%d> %-7s: "%s" from user %d. Duration %d ms'
             text = ""
             user_id = 0
-
             if update.message:
                 text = update.message.text
                 user_id = update.message.from_user.id
@@ -41,14 +44,18 @@ class LoggingMiddleware(BaseMiddleware):
             if handled:
                 self.logger.info(
                     format_string,
+                    update.update_id,
+                    "request",
                     text,
                     user_id,
                     duration,
                 )
             else:
-                format_string = '"%s" from user %d. NOT HANDLED'
+                format_string = '<%d> %-7s: "%s" from user %d. NOT HANDLED'
                 self.logger.debug(
                     format_string,
+                    update.update_id,
+                    "request",
                     text,
                     user_id,
                 )
