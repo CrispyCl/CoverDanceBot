@@ -11,7 +11,7 @@ from models import Cover, DifficultEnum, LanguageEnum, User
 class UserDataClass:
     id: int
     username: str
-    token_count: int = 2_000
+    token_count: int = 5_000
     is_staff: bool = False
 
 

@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import datetime
 from enum import Enum as PyEnum
 
 from sqlalchemy import Boolean, Column, Date, DateTime, Enum, Integer, orm, String
@@ -17,7 +17,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String, unique=True, nullable=False)
     token_count = Column(Integer, default=0)
-    token_last_receipt = Column(Date, default=date.today())
+    token_last_receipt = Column(Date, nullable=True)
     language = Column(Enum(LanguageEnum), default=LanguageEnum.EN)
     is_staff = Column(Boolean, default=False)
     is_superuser = Column(Boolean, default=False)

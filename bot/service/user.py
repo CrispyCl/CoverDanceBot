@@ -15,7 +15,7 @@ class UserService(DefaultUserService):
         self.repo = repository
         self.log = logger
 
-    async def create(self, id: int, username: str, is_staff: bool = False, token_count: int = 2_000) -> int:
+    async def create(self, id: int, username: str, is_staff: bool = False, token_count: int = 5_000) -> int:
         try:
             user = UserDataClass(id=id, username=username, token_count=token_count, is_staff=is_staff)
             return await self.repo.create(user_data=user)
@@ -36,8 +36,9 @@ class UserService(DefaultUserService):
 
     async def get_or_create(self, id: int, username: str) -> User:
         try:
-            user = await self.repo.get_one(id)
-            if not user:
+            try:
+                user = await self.repo.get_one(id)
+            except NoResultFound:
                 try:
                     id = await self.create(id, username)
                     return await self.repo.get_one(id)
@@ -45,7 +46,6 @@ class UserService(DefaultUserService):
                     self.log.warning("UserRepository: %s" % e)
                 except Exception as e:
                     self.log.error("UserRepository: %s" % e)
-                return None
             return user
         except Exception as e:
             self.log.error("UserRepository: %s" % e)

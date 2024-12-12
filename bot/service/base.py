@@ -14,7 +14,7 @@ class DefaultUserService(ABC):
         self.log = logger
 
     @abstractmethod
-    async def create(self, id: int, username: str, is_staff: bool = False, token_count: int = 2_000) -> int:
+    async def create(self, id: int, username: str, is_staff: bool = False, token_count: int = 5_000) -> int:
         """Create user method."""
 
     @abstractmethod
