@@ -15,9 +15,9 @@ class UserService(DefaultUserService):
         self.repo = repository
         self.log = logger
 
-    async def create(self, id: int, is_staff: bool = False, token_count: int = 2_000) -> int:
-        user = UserDataClass(id=id, token_count=token_count, is_staff=is_staff)
+    async def create(self, id: int, username: str, is_staff: bool = False, token_count: int = 5_000) -> int:
         try:
+            user = UserDataClass(id=id, username=username, token_count=token_count, is_staff=is_staff)
             return await self.repo.create(user_data=user)
         except IntegrityError as e:
             self.log.warning("UserRepository: %s" % e)
@@ -25,38 +25,56 @@ class UserService(DefaultUserService):
             self.log.error("UserRepository: %s" % e)
         return 0
 
-    async def get(self, id: int) -> User:
+    async def get_one(self, id: int) -> User:
         try:
-            return await self.repo.get(id)
+            return await self.repo.get_one(id)
         except NoResultFound as e:
             self.log.warning("UserRepository: %s" % e)
         except Exception as e:
             self.log.error("UserRepository: %s" % e)
         return None
 
-    async def get_or_create(self, id: int) -> User:
+    async def get_or_create(self, id: int, username: str) -> User:
         try:
-            user = await self.repo.get(id)
-            if not user:
+            try:
+                user = await self.repo.get_one(id)
+            except NoResultFound:
                 try:
-                    id = await self.create(id)
-                    return await self.repo.get(id)
+                    id = await self.create(id, username)
+                    return await self.repo.get_one(id)
                 except IntegrityError as e:
                     self.log.warning("UserRepository: %s" % e)
                 except Exception as e:
                     self.log.error("UserRepository: %s" % e)
-                return None
             return user
         except Exception as e:
             self.log.error("UserRepository: %s" % e)
         return None
 
-    async def list(self) -> list[User]:
+    async def get_by_username(self, username: str) -> User:
         try:
-            return await self.repo.list()
+            return await self.repo.get_by_username(username)
+        except NoResultFound as e:
+            self.log.warning("UserRepository: %s" % e)
+        except Exception as e:
+            self.log.error("UserRepository: %s" % e)
+        return None
+
+    async def get(self) -> list[User]:
+        try:
+            return await self.repo.get()
         except Exception as e:
             self.log.error("UserRepository: %s" % e)
         return []
+
+    async def update_username(self, id: int, username: str) -> User:
+        try:
+            return await self.repo.update_username(id, username)
+        except NoResultFound as e:
+            self.log.warning("UserRepository: %s" % e)
+        except Exception as e:
+            self.log.error("UserRepository: %s" % e)
+        return None
 
     async def update_token(self, id: int, difference: int, is_daily: bool = False) -> bool:
         try:
@@ -90,7 +108,7 @@ class UserService(DefaultUserService):
 
     async def is_admin(self, id: int) -> bool:
         try:
-            user = await self.repo.get(id)
+            user = await self.repo.get_one(id)
             if not user:
                 raise NoResultFound(f"User with id={id} does not exist")
             return user.is_staff
@@ -102,7 +120,7 @@ class UserService(DefaultUserService):
 
     async def is_super_admin(self, id: int) -> bool:
         try:
-            user = await self.repo.get(id)
+            user = await self.repo.get_one(id)
             if not user:
                 raise NoResultFound(f"User with id={id} does not exist")
             return user.is_superuser
