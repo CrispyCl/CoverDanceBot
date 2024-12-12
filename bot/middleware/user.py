@@ -17,12 +17,13 @@ class ACLMiddleware(BaseMiddleware):
         event: Update,
         data: Dict[str, Any],
     ):
-
         if event.message:
-            user_id = event.message.from_user.id
+            user = event.message.from_user
         elif event.callback_query:
-            user_id = event.callback_query.from_user.id
-        current_user = await self.service.get_or_create(user_id)
+            user = event.callback_query.from_user
+
+        current_user = await self.service.get_or_create(user.id, user.username)
+        current_user = await self.service.update_username(current_user.id, user.username)
 
         data["current_user"] = current_user
         return await handler(event, data)

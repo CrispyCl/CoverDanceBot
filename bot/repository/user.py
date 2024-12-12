@@ -25,6 +25,7 @@ class UserRepository(DefaultUserRepository):
                 user_data.token_count = 0
             user = User(
                 id=user_data.id,
+                username=user_data.username,
                 token_count=user_data.token_count,
                 is_staff=user_data.is_staff,
             )
@@ -45,22 +46,54 @@ class UserRepository(DefaultUserRepository):
                 await session.rollback()
                 raise e
 
-    async def get(self, id: int) -> User:
+    async def get_one(self, id: int) -> User:
         async with self.db.get_session() as session:
             session: AsyncSession
             try:
-                return await session.get(User, id)
+                user = await session.get(User, id)
+                if not user:
+                    raise NoResultFound()
+                return user
             except NoResultFound:
                 raise NoResultFound(f"User with id={id} does not exist")
             except Exception as e:
                 raise e
 
-    async def list(self) -> list[User]:
+    async def get_by_username(self, username: str) -> User:
+        async with self.db.get_session() as session:
+            session: AsyncSession
+            try:
+                user = (await session.execute(select(User).filter(User.username == username))).first()
+                if not user:
+                    raise NoResultFound()
+                return user
+            except NoResultFound:
+                raise NoResultFound(f"User with username={username} does not exist")
+            except Exception as e:
+                raise e
+
+    async def get(self) -> list[User]:
         async with self.db.get_session() as session:
             session: AsyncSession
             try:
                 return (await session.execute(select(User).order_by(User.id))).scalars().all()
             except Exception as e:
+                raise e
+
+    async def update_username(self, id: int, username: str) -> User:
+        async with self.db.get_session() as session:
+            session: AsyncSession
+            try:
+                user = await session.get(User, id)
+                if user is None:
+                    raise NoResultFound(f"User with id={id} does not exist")
+                user.username = username
+                await session.commit()
+                await session.refresh(user)
+                return user
+
+            except Exception as e:
+                await session.rollback()
                 raise e
 
     async def update_token(self, id: int, difference: int, is_daily: bool = False) -> User:
