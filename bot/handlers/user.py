@@ -74,7 +74,7 @@ async def show_balance(message: Message, current_user: User, user_service: Defau
 @router.message(lambda m: m.text == _("✨Daily bonus"), StateFilter(FSMUser.main_menu))
 async def process_daily_bonus_reciept(message: Message, current_user: User, user_service: DefaultUserService):
     is_token_updated = await user_service.update_token(current_user.id, 2000, True)
-    current_user = await user_service.get(current_user.id)
+    current_user = await user_service.get_one(current_user.id)
     await message.delete()
 
     if is_token_updated:
@@ -104,7 +104,7 @@ async def change_language_to_russian(callback: CallbackQuery, i18n: I18n, user_s
     await callback.message.delete()
     await user_service.update_language(callback.from_user.id, "ru")
     i18n.ctx_locale.set("ru")
-    user = await user_service.get(callback.from_user.id)
+    user = await user_service.get_one(callback.from_user.id)
     if user.is_staff:
         await callback.message.answer(
             text=_("Your language has been changed to English"),
@@ -122,7 +122,7 @@ async def change_language_to_english(callback: CallbackQuery, i18n: I18n, user_s
     await callback.message.delete()
     await user_service.update_language(callback.from_user.id, "en")
     i18n.ctx_locale.set("en")
-    user = await user_service.get(callback.from_user.id)
+    user = await user_service.get_one(callback.from_user.id)
     if user.is_staff:
         await callback.message.answer(
             text=_("Your language has been changed to English"),

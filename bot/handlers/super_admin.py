@@ -44,7 +44,7 @@ async def process_super_admin_help_button(message: Message) -> None:
 async def admin_management_menu(message: Message, user_service: DefaultUserService, state: FSMContext) -> None:
     await message.delete()
     await message.answer(
-        text=_("Admins: \n") + "\n".join([str(user.id) for user in await user_service.list() if user.is_staff]),
+        text=_("Admins: \n") + "\n".join([str(user.id) for user in await user_service.get() if user.is_staff]),
         reply_markup=AdminManagementInlineKeyboard()(),
     )
     await state.set_state(FSMSuperAdmin.admin_management_menu)
@@ -72,7 +72,7 @@ async def back_to_main_menu(callback: CallbackQuery, state: FSMContext):
 @router.callback_query(F.data == "back_button_pressed", StateFilter(FSMSuperAdmin.fill_username))
 async def back_to_admin_management_menu(callback: CallbackQuery, state: FSMContext, user_service: DefaultUserService):
     await callback.message.edit_text(
-        text=_("Admins: \n") + "\n".join([str(user.id) for user in await user_service.list() if user.is_staff]),
+        text=_("Admins: \n") + "\n".join([str(user.id) for user in await user_service.get() if user.is_staff]),
     )
     await callback.message.edit_reply_markup(reply_markup=AdminManagementInlineKeyboard()())
     await state.set_state(FSMSuperAdmin.admin_management_menu)
@@ -83,7 +83,7 @@ async def add_new_admin(message: Message, state: FSMContext, user_service: Defau
     await message.delete()
     if message.text.isdigit():
         id = int(message.text)
-        user = await user_service.get_or_create(id)
+        user = await user_service.get_or_create(id, message.from_user.username)
         if not user:
             await message.answer(_("Pleace enter correct user id"))
         elif user.is_staff:
