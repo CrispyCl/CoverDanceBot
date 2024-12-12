@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-11 15:07+0300\n"
+"POT-Creation-Date: 2024-12-13 00:29+0300\n"
 "PO-Revision-Date: 2024-12-05 19:32+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -39,9 +39,9 @@ msgstr ""
 msgid "This is the /help menu"
 msgstr "Это меню /help"
 
-#: bot/handlers/super_admin.py:43 bot/keyboards/super_admin.py:8
-msgid "Admin management"
-msgstr "Управление админами"
+#: bot/handlers/super_admin.py:43 bot/keyboards/super_admin.py:10
+msgid "⚙️Admin management"
+msgstr "⚙️Управление админами"
 
 #: bot/handlers/super_admin.py:47 bot/handlers/super_admin.py:75
 msgid "Admins: \n"
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Admin successfully added"
 msgstr "Админ успешно добавлен"
 
-#: bot/handlers/user.py:28
+#: bot/handlers/user.py:29
 msgid ""
 "Hi, this is a bot for finding practice videos by (what we have...).\n"
 "\n"
@@ -77,7 +77,7 @@ msgstr ""
 "Выберите [Поиск видео], чтобы начать или нажмите /help, чтобы увидеть "
 "описание всех доступных действий."
 
-#: bot/handlers/user.py:42
+#: bot/handlers/user.py:43
 msgid ""
 "<b>User assistance menu</b>\n"
 "\n"
@@ -108,43 +108,79 @@ msgstr ""
 "\n"
 "<b>[Изменить язык]</b> - Изменение языковых настроек интерфейса бота "
 
-#: bot/handlers/user.py:59 bot/keyboards/super_admin.py:9
+#: bot/handlers/user.py:60 bot/keyboards/user.py:9
+msgid "💰Balance"
+msgstr "💰Баланс"
+
+#: bot/handlers/user.py:64
+msgid ""
+"Your balance: {token_count}\n"
+"\n"
+"The cost of video retrieval is 500 tokens\n"
+"\n"
+"To top up your token balance, take advantage of the daily bonus"
+msgstr ""
+"Ваш баланс: {token_count}\n"
+"\n"
+"Стоимость поиска видео составляет 500 токенов\n"
+"\n"
+"Чтобы пополнить баланс токенов, получите ежедневный бонус"
+
+#: bot/handlers/user.py:74 bot/keyboards/user.py:9
+msgid "✨Daily bonus"
+msgstr "✨Ежедневный бонус"
+
+#: bot/handlers/user.py:82
+msgid ""
+"You received a daily bonus\n"
+"\n"
+"Your current balance: {token_count}"
+msgstr ""
+"Вы получили ежедневный бонус\n"
+"\n"
+"Ваш текущий баланс: {token_count}"
+
+#: bot/handlers/user.py:90
+msgid ""
+"You've already received a bonus today\n"
+"\n"
+"Please come back tomorrow"
+msgstr ""
+"Сегодня вы уже получили бонус\n"
+"\n"
+"Пожалуйста, возвращайтесь завтра"
+
+#: bot/handlers/user.py:96 bot/keyboards/super_admin.py:13
 #: bot/keyboards/user.py:10
 msgid "🈹Change language"
 msgstr "🈹Изменить язык"
 
-#: bot/handlers/user.py:62
+#: bot/handlers/user.py:99
 msgid "Choose the neccesary language"
 msgstr "Выберите необходимый язык"
 
-#: bot/handlers/user.py:70 bot/handlers/user.py:78
-msgid "Your language has been changed"
+#: bot/handlers/user.py:110 bot/handlers/user.py:115 bot/handlers/user.py:128
+#: bot/handlers/user.py:133
+msgid "Your language has been changed to English"
 msgstr "Ваш язык был изменён на Русский"
 
-#: bot/keyboards/super_admin.py:8
-msgid "Add video"
-msgstr "Добавить видео"
-
-#: bot/keyboards/super_admin.py:18
-msgid "Add admin"
-msgstr "Добавить админа"
-
-#: bot/keyboards/super_admin.py:19
-msgid "Delete admin"
-msgstr "Удалить админа"
-
-#: bot/keyboards/super_admin.py:21 bot/keyboards/super_admin.py:29
-msgid "Back"
-msgstr "Назад"
-
-#: bot/keyboards/user.py:8
+#: bot/keyboards/super_admin.py:8 bot/keyboards/user.py:8
 msgid "🔍Find practice video"
 msgstr "🔍Найти практик-видео"
 
-#: bot/keyboards/user.py:9
-msgid "💰Balance"
-msgstr "💰Баланс"
+#: bot/keyboards/super_admin.py:11
+msgid "📽️Add video"
+msgstr "📽️Добавить видео"
 
-#: bot/keyboards/user.py:9
-msgid "✨Daily bonus"
-msgstr "✨Ежедневный бонус"
+#: bot/keyboards/super_admin.py:22
+msgid "➕Add admin"
+msgstr "➕Добавить админа"
+
+#: bot/keyboards/super_admin.py:23
+msgid "❌Delete admin"
+msgstr "❌Удалить админа"
+
+#: bot/keyboards/super_admin.py:25 bot/keyboards/super_admin.py:33
+msgid "🔙Back"
+msgstr "🔙Назад"
+

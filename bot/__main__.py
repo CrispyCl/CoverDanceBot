@@ -10,7 +10,7 @@ from aiogram.utils.i18n import I18n
 
 from config import Config, load_config
 from database import DefaultDatabase, PostgresDatabase
-from handlers import admin_router, user_router
+from handlers import super_admin_router, user_router
 from keyboards.set_menu import set_main_menu
 from logger import get_logger
 from middleware import setup as setup_middlewares
@@ -91,8 +91,9 @@ async def main() -> None:
     dp.workflow_data["user_service"] = user_service
 
     logger.debug("Registering routers...")
-    dp.include_router(admin_router)
+    dp.include_router(super_admin_router)
     dp.include_router(user_router)
+
     logger.debug("Initialising i18n...")
     i18n = I18n(path="locales", default_locale="en", domain="messages")
 
