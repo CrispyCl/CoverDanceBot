@@ -15,6 +15,16 @@ class BaseSuperadminKeyboard:
         return ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True)
 
 
+class BaseAdminKeyboard:
+    def __call__(self) -> ReplyKeyboardMarkup:
+        buttons: list[list[KeyboardButton]] = [
+            [KeyboardButton(text=_("🔍Find practice video"))],
+            [KeyboardButton(text=_("📽️Add video"))],
+            [KeyboardButton(text=_("🈹Change language"))],
+        ]
+        return ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True)
+
+
 class AdminManagementInlineKeyboard:
     def __call__(self) -> InlineKeyboardMarkup:
         buttons: list[list[InlineKeyboardButton]] = [
@@ -34,4 +44,4 @@ class BackButton:
         )
 
 
-__all__ = ["BaseSuperadminKeyboard", "BackButton"]
+__all__ = ["BaseSuperadminKeyboard", "BackButton", "BaseAdminKeyboard", "AdminManagementInlineKeyboard"]

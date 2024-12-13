@@ -28,6 +28,7 @@ class LoggingMiddleware(BaseMiddleware):
 
         except Exception as e:
             self.logger.error("<%d> %-7s: %s", update.update_id, "error", str(e))
+            raise e
 
         finally:
             duration = (loop.time() - start_time) * 1000

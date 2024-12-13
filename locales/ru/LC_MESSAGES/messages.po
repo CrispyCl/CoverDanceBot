@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-13 00:29+0300\n"
+"POT-Creation-Date: 2024-12-13 23:55+0300\n"
 "PO-Revision-Date: 2024-12-05 19:32+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,51 +19,127 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.16.0\n"
 
-#: bot/handlers/super_admin.py:28
+#: bot/handlers/admin.py:41
 msgid ""
-"Welcome to the CoverDanceBot admin panel.\n"
+"<b>Welcome to the CoverDanceBot admin panel</b>\n"
 "\n"
-"Click add admin to add a user who can makechanges to the database.\n"
-"\n"
-"Press /help in the menu to see a description of all the actionsavailable "
-"to you."
+"Press <b>/help</b> in the menu to see a description of all the "
+"actionsavailable to you."
 msgstr ""
-"Добро пожаловать в меню управления CoverDanceBot\n"
+"<b>Добро пожаловать в меню управления CoverDanceBot</b>\n"
 "\n"
-"Нажмите добавить админа, чтобы добавить пользователя, который сможет "
-"вносить изменения в базу данных.\n"
 "\n"
-"Нажмите /help в меню, чтобы увидеть описание всех доступных вам команд."
+"Нажмите <b>/help</b> в меню, чтобы увидеть описание всех доступных вам "
+"команд."
 
-#: bot/handlers/super_admin.py:40
-msgid "This is the /help menu"
-msgstr "Это меню /help"
+#: bot/handlers/admin.py:54
+msgid ""
+"<b>Superadmin help section</b>\n"
+"\n"
+"<b>[🔍Find a practice video]</b> - Perform the video search procedure "
+"according to the specified parameters\n"
+"\n"
+"<b>[⚙️Admin management]</b> - Switching to the admin management menu\n"
+"\n"
+"<b>[➕Add video]</b> - Adding a new video to the bot's database\n"
+"\n"
+"<b>[🈹Change language]</b> - Changing the language of the bot interface"
+msgstr ""
+"<b>Раздел помощи суперадмину</b>\n"
+"\n"
+"<b>[🔍Найти практик-видео]</b> - Выполнить поиск видео в базе данных бота "
+"по заданным параметрам\n"
+"\n"
+"<b>[⚙️Управление админами]</b> - Переход в меню управления админами\n"
+"\n"
+"<b>[➕Добавить видео]</b> - Добавление нового видео в базу данных бота\n"
+"\n"
+"<b>[🈹Изменить язык]</b> - Изменения языковых параметров интерфейса бота"
 
-#: bot/handlers/super_admin.py:43 bot/keyboards/super_admin.py:10
+#: bot/handlers/admin.py:69
+msgid ""
+"<b>Admin help section</b>\n"
+"\n"
+"<b>[🔍Find a practice video]</b> - Perform the video search procedure "
+"according to the specified parameters\n"
+"\n"
+"<b>[📽️Add video]</b> - Adding a new video to the bot's database\n"
+"\n"
+"<b>[🈹Change language]</b> - Changing the language of the bot interface"
+msgstr ""
+"<b>Раздел помощи админу</b>\n"
+"\n"
+"<b>[🔍Найти практик-видео]</b> - Perform the video search procedure "
+"according to the specified parameters\n"
+"\n"
+"<b>[📽️Add video]</b> - Добавление нового видео в базу данных бота\n"
+"\n"
+"<b>[🈹Изменить язык]</b> - Изменения языковых параметров интерфейса бота"
+
+#: bot/handlers/admin.py:80 bot/keyboards/admin.py:10
 msgid "⚙️Admin management"
 msgstr "⚙️Управление админами"
 
-#: bot/handlers/super_admin.py:47 bot/handlers/super_admin.py:75
-msgid "Admins: \n"
-msgstr "Список админов\n"
+#: bot/handlers/admin.py:84 bot/handlers/admin.py:131
+msgid "List of admins: \n"
+msgstr "Список админов: \n"
 
-#: bot/handlers/super_admin.py:55 bot/handlers/super_admin.py:62
-msgid "Pleace enter the user id"
-msgstr "Введите id пользователя"
+#: bot/handlers/admin.py:94 bot/handlers/admin.py:112
+msgid "Pleace enter the username"
+msgstr "Введите имя пользователя"
 
-#: bot/handlers/super_admin.py:88 bot/handlers/super_admin.py:98
-msgid "Pleace enter correct user id"
-msgstr "Пожалуйста, введите корректный id пользователя"
+#: bot/handlers/admin.py:143 bot/handlers/admin.py:156
+msgid "Please make sure this user is using a bot or try entering username again"
+msgstr ""
+"Пожалуйста, убедитесь, что данный человек уже использует бот, или "
+"попробуйте ввести имя пользователя ещё раз"
 
-#: bot/handlers/super_admin.py:90
-msgid "This user is already an admin, try again or press back"
+#: bot/handlers/admin.py:145
+msgid "This user is already an admin, try again or press [back]"
 msgstr ""
 "Этот пользователь уже является админом, попробуйте ещё раз или нажмите "
-"Назад"
+"[назад]"
 
-#: bot/handlers/super_admin.py:94
-msgid "Admin successfully added"
-msgstr "Админ успешно добавлен"
+#: bot/handlers/admin.py:148
+msgid "Admin successfully added, enter another username or press [back]"
+msgstr ""
+"Админ успешно добавлен. Введите ещё одно имя пользователя или нажмите "
+"[назад]"
+
+#: bot/handlers/admin.py:158
+msgid "This user is not an admin, try again or press [back]"
+msgstr ""
+"Этот пользователь не является админом, попробуйте ещё раз или нажмите "
+"[Назад]"
+
+#: bot/handlers/admin.py:161
+msgid ""
+"<b>You cannot revoke your administrator rights</b>\n"
+"\n"
+"Enter another user name or press [back]"
+msgstr ""
+"<b>Вы не можете лишить себя прав администратора</b>\n"
+"\n"
+"Введите другое имя пользователя или нажмите [назад]"
+
+#: bot/handlers/admin.py:166
+msgid "Admin successfully deleted, enter another username or press [back]"
+msgstr "Админ успешно удалён. Введите ещё одно имя пользователя или нажмите [назад]"
+
+#: bot/handlers/chat_settings.py:13 bot/keyboards/admin.py:13
+#: bot/keyboards/admin.py:23 bot/keyboards/user.py:10
+msgid "🈹Change language"
+msgstr "🈹Изменить язык"
+
+#: bot/handlers/chat_settings.py:16
+msgid "Choose the neccesary language"
+msgstr "Выберите необходимый язык"
+
+#: bot/handlers/chat_settings.py:27 bot/handlers/chat_settings.py:32
+#: bot/handlers/chat_settings.py:37 bot/handlers/chat_settings.py:50
+#: bot/handlers/chat_settings.py:55 bot/handlers/chat_settings.py:60
+msgid "Your language has been changed to English"
+msgstr "Ваш язык был изменён на Русский"
 
 #: bot/handlers/user.py:29
 msgid ""
@@ -150,37 +226,23 @@ msgstr ""
 "\n"
 "Пожалуйста, возвращайтесь завтра"
 
-#: bot/handlers/user.py:96 bot/keyboards/super_admin.py:13
-#: bot/keyboards/user.py:10
-msgid "🈹Change language"
-msgstr "🈹Изменить язык"
-
-#: bot/handlers/user.py:99
-msgid "Choose the neccesary language"
-msgstr "Выберите необходимый язык"
-
-#: bot/handlers/user.py:110 bot/handlers/user.py:115 bot/handlers/user.py:128
-#: bot/handlers/user.py:133
-msgid "Your language has been changed to English"
-msgstr "Ваш язык был изменён на Русский"
-
-#: bot/keyboards/super_admin.py:8 bot/keyboards/user.py:8
+#: bot/keyboards/admin.py:8 bot/keyboards/admin.py:21 bot/keyboards/user.py:8
 msgid "🔍Find practice video"
 msgstr "🔍Найти практик-видео"
 
-#: bot/keyboards/super_admin.py:11
+#: bot/keyboards/admin.py:11 bot/keyboards/admin.py:22
 msgid "📽️Add video"
 msgstr "📽️Добавить видео"
 
-#: bot/keyboards/super_admin.py:22
+#: bot/keyboards/admin.py:32
 msgid "➕Add admin"
 msgstr "➕Добавить админа"
 
-#: bot/keyboards/super_admin.py:23
+#: bot/keyboards/admin.py:33
 msgid "❌Delete admin"
 msgstr "❌Удалить админа"
 
-#: bot/keyboards/super_admin.py:25 bot/keyboards/super_admin.py:33
+#: bot/keyboards/admin.py:35 bot/keyboards/admin.py:43
 msgid "🔙Back"
 msgstr "🔙Назад"
 
