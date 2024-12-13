@@ -63,7 +63,7 @@ class UserRepository(DefaultUserRepository):
         async with self.db.get_session() as session:
             session: AsyncSession
             try:
-                user = (await session.execute(select(User).filter(User.username == username))).first()
+                user = (await session.execute(select(User).filter(User.username == username))).scalar_one()
                 if not user:
                     raise NoResultFound()
                 return user
