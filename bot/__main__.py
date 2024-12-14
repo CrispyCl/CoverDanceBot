@@ -11,7 +11,7 @@ from aiogram.utils.i18n import I18n
 from config import Config, load_config
 from database import DefaultDatabase, PostgresDatabase
 from handlers import admin_router, chat_settings_router, user_router
-from keyboards.set_menu import set_main_menu
+from keyboards.set_menu import setup_menu
 from logger import get_logger
 from middleware import setup as setup_middlewares
 from repository import CoverRepository, UserRepository
@@ -79,7 +79,7 @@ async def main() -> None:
 
     logger.debug("Loading menu...")
     try:
-        await set_main_menu(bot)
+        await setup_menu(bot)
     except Exception as e:
         logger.fatal("Menu loading failed: %s", str(e))
 
