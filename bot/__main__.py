@@ -66,7 +66,7 @@ async def main() -> None:
     storage = RedisStorage(redis=redis)
 
     logger.debug("Connecting to the database...")
-    db = PostgresDatabase(config=config.posgres)
+    db = PostgresDatabase(config=config.postgres)
     try:
         await db.init_db()
     except Exception as e:

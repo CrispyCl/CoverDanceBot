@@ -95,15 +95,6 @@ async def ask_for_new_admin_name(callback: CallbackQuery, state: FSMContext) -> 
         reply_markup=BackButton()(),
     )
     await state.set_state(FSMSuperAdmin.fill_username_to_add)
-    await state.update_data(
-        {
-            "admin_management_menu_message": {
-                "id": callback.id,
-                "from_user": callback.from_user,
-                "chat_instance": callback.chat_instance,
-            },
-        },
-    )
 
 
 @router.callback_query(F.data == "delete_admin_button_pressed", StateFilter(FSMSuperAdmin.admin_management_menu))
@@ -158,7 +149,7 @@ async def delete_admin(message: Message, current_user: User, user_service: Defau
         await message.answer(text=_("This user is not an admin, try again or press [back]"))
     elif user.id == current_user.id:
         await message.answer(
-            text=_("<b>You cannot revoke your administrator rights</b>\n\nEnter another user name or press [back]"),
+            text=_("<b>You cannot revoke your administrator rights</b>\n\nEnter another username or press [back]"),
             parse_mode="HTML",
         )
     else:

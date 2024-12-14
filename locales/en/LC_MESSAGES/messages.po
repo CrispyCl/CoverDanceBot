@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-14 16:06+0300\n"
+"POT-Creation-Date: 2024-12-14 22:46+0300\n"
 "PO-Revision-Date: 2024-12-05 19:32+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -56,38 +56,38 @@ msgstr ""
 msgid "⚙️Admin management"
 msgstr ""
 
-#: bot/handlers/admin.py:84 bot/handlers/admin.py:131
+#: bot/handlers/admin.py:84 bot/handlers/admin.py:122
 msgid "List of admins: \n"
 msgstr ""
 
-#: bot/handlers/admin.py:94 bot/handlers/admin.py:112
+#: bot/handlers/admin.py:94 bot/handlers/admin.py:103
 msgid "Pleace enter the username"
 msgstr ""
 
-#: bot/handlers/admin.py:143 bot/handlers/admin.py:156
+#: bot/handlers/admin.py:134 bot/handlers/admin.py:147
 msgid "Please make sure this user is using a bot or try entering username again"
 msgstr ""
 
-#: bot/handlers/admin.py:145
+#: bot/handlers/admin.py:136
 msgid "This user is already an admin, try again or press [back]"
 msgstr ""
 
-#: bot/handlers/admin.py:148
+#: bot/handlers/admin.py:139
 msgid "Admin successfully added, enter another username or press [back]"
 msgstr ""
 
-#: bot/handlers/admin.py:158
+#: bot/handlers/admin.py:149
 msgid "This user is not an admin, try again or press [back]"
 msgstr ""
 
-#: bot/handlers/admin.py:161
+#: bot/handlers/admin.py:152
 msgid ""
 "<b>You cannot revoke your administrator rights</b>\n"
 "\n"
-"Enter another user name or press [back]"
+"Enter another username or press [back]"
 msgstr ""
 
-#: bot/handlers/admin.py:166
+#: bot/handlers/admin.py:157
 msgid "Admin successfully deleted, enter another username or press [back]"
 msgstr ""
 
@@ -103,9 +103,8 @@ msgstr ""
 #: bot/handlers/chat_settings.py:27 bot/handlers/chat_settings.py:32
 #: bot/handlers/chat_settings.py:37 bot/handlers/chat_settings.py:50
 #: bot/handlers/chat_settings.py:55 bot/handlers/chat_settings.py:60
-#, fuzzy
 msgid "Your language has been changed to English"
-msgstr "Your language has been changed to English"
+msgstr ""
 
 #: bot/handlers/user.py:29
 msgid ""
@@ -183,95 +182,4 @@ msgstr ""
 #: bot/keyboards/admin.py:35 bot/keyboards/admin.py:43
 msgid "🔙Back"
 msgstr ""
-
-#~ msgid "Add admin"
-#~ msgstr ""
-
-#~ msgid "Add video"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Welcome to the CoverDanceBot control menu.\n"
-#~ "\n"
-#~ "Click add admin to add a user who can makechanges to the database.\n"
-#~ "\n"
-#~ "Press /help in the menu to see "
-#~ "a description of all the "
-#~ "actionsavailable to you."
-#~ msgstr ""
-
-#~ msgid "Find a practical video"
-#~ msgstr ""
-
-#~ msgid "Balance"
-#~ msgstr ""
-
-#~ msgid "This is the user help section"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "<b>Welcome to the CoverDanceBot admin panel</b>\n"
-#~ "\n"
-#~ "Press /help in the menu to see "
-#~ "a description of all the "
-#~ "actionsavailable to you."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Welcome to the CoverDanceBot admin panel.\n"
-#~ "\n"
-#~ "Click add admin to add a user who can makechanges to the database.\n"
-#~ "\n"
-#~ "Press /help in the menu to see "
-#~ "a description of all the "
-#~ "actionsavailable to you."
-#~ msgstr ""
-
-#~ msgid "This is the /help menu"
-#~ msgstr ""
-
-#~ msgid "Admin successfully added"
-#~ msgstr ""
-
-#~ msgid "Admin successfully deleted"
-#~ msgstr ""
-
-#~ msgid "Admins: \n"
-#~ msgstr ""
-
-#~ msgid "Pleace enter the user id"
-#~ msgstr ""
-
-#~ msgid "Pleace enter correct user id"
-#~ msgstr ""
-
-#~ msgid "Admin successfully added, enter another user id or press back"
-#~ msgstr ""
-
-#~ msgid "Admin successfully deleted, enter another user id or press back"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "<b>Admin help section</b>\n"
-#~ "\n"
-#~ "<b>[🔍Find a practice video]</b> - "
-#~ "Perform the video search procedure "
-#~ "according to the specified parameters\n"
-#~ "\n"
-#~ "<b>[➕Add video]</b> - Adding a new video to the bot's database\n"
-#~ "\n"
-#~ "<b>[🈹Change language]</b> - Changing the language of the bot interface"
-#~ msgstr ""
-
-#~ msgid "This user is already an admin, try again or press back"
-#~ msgstr ""
-
-#~ msgid "Admin successfully added, enter another username or press back"
-#~ msgstr ""
-
-#~ msgid "This user is not an admin, try again or press back"
-#~ msgstr ""
-
-#~ msgid "Admin successfully deleted, enter another username or press back"
-#~ msgstr ""
 
