@@ -4,12 +4,23 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message
 from aiogram.utils.i18n import gettext as _
+from datetime import datetime
 
 
 from filters import IsAdminFilter, IsSuperAdminFilter
-from keyboards import AdminManagementInlineKeyboard, BackButton, BaseAdminKeyboard, BaseSuperadminKeyboard
+from keyboards import (
+    AdminManagementInlineKeyboard,
+    BackButton,
+    BaseAdminKeyboard,
+    BaseSuperadminKeyboard,
+    ChooseDifficultKeyboard,
+    ChooseGenderKeyboard,
+    SaveCoverKeyboard,
+)
 from models import User
-from service import DefaultUserService
+from service import DefaultUserService, DefaultCoverService
+from repository import CoverDataClass
+from models import DifficultEnum
 
 
 router = Router()
@@ -25,6 +36,13 @@ class FSMSuperAdmin(StatesGroup):
 
 class FSMAdmin(StatesGroup):
     main_menu = State()
+    fill_cover_name = State()
+    fil_cover_url = State()
+    fill_cover_gender = State()
+    fill_cover_members = State()
+    fill_cover_difficulty = State()
+    fill_cover_publish_date = State()
+    save_cover = State()
 
 
 @router.message(CommandStart())
@@ -216,6 +234,133 @@ async def delete_admin(
         )
         await state.clear()
         await state.set_state(FSMSuperAdmin.admin_management_menu)
+
+
+@router.message(lambda m: m.text == _("📽️Add video"), StateFilter(FSMSuperAdmin.main_menu, FSMAdmin.main_menu))
+async def process_add_video_button(message: Message, state: FSMContext):
+    await message.delete()
+    await message.answer(text=_("Please enter the name of the cover"))
+    await state.set_state(FSMAdmin.fill_cover_name)
+
+
+@router.message(StateFilter(FSMAdmin.fill_cover_name))
+async def process_cover_name_input(message: Message, state: FSMContext):
+    await message.answer(text=_("Please enter the link to the cover"))
+    await state.update_data(cover_name=message.text)
+    await state.set_state(FSMAdmin.fil_cover_url)
+
+
+@router.message(StateFilter(FSMAdmin.fil_cover_url))
+async def process_cover_url_input(message: Message, state: FSMContext):
+    await message.answer(text=_("Select gender"), reply_markup=ChooseGenderKeyboard()())
+    await state.update_data(cover_url=message.text)
+    await state.set_state(FSMAdmin.fill_cover_gender)
+
+
+@router.message(StateFilter(FSMAdmin.fill_cover_gender))
+async def process_cover_gender_input(message: Message, state: FSMContext):
+    await message.answer(text=_("Enter the number of participants"))
+    if message.text == _("Female"):
+        await state.update_data(cover_gender=False)
+    else:
+        await state.update_data(cover_gender=True)
+    await state.set_state(FSMAdmin.fill_cover_members)
+
+
+@router.message(StateFilter(FSMAdmin.fill_cover_members))
+async def process_cover_members_input(message: Message, state: FSMContext):
+    await message.answer(text=_("Choose difficulty level"), reply_markup=ChooseDifficultKeyboard()())
+    await state.update_data(cover_members=message.text)
+    await state.set_state(FSMAdmin.fill_cover_difficulty)
+
+
+@router.message(StateFilter(FSMAdmin.fill_cover_difficulty))
+async def process_cover_difficulty_input(message: Message, state: FSMContext):
+    await message.answer(text=_("Enter the date of publication of the cover in the format of YYYY-MM-DD"))
+    if message.text == _("Easy"):
+        await state.update_data(cover_difficulty="easy")
+    else:
+        await state.update_data(cover_difficulty="hard")
+    await state.set_state(FSMAdmin.fill_cover_publish_date)
+
+
+@router.message(StateFilter(FSMAdmin.fill_cover_publish_date))
+async def process_cover_publish_date_input(message: Message, state: FSMContext):
+    await state.update_data(cover_publish_date=message.text)
+    cover_data = await state.get_data()
+    await message.answer(
+        text=_(
+            "<b>Please check the data entered:</b>\n\n"
+            + "Cover name: {}\n"
+            + "Cover url: {}\n"
+            + "Cover gender: {}\n"
+            + "Cover members count: {}\n"
+            + "Cover difficulty: {}\n"
+            + "Cover publish date: {}",
+        ).format(
+            cover_data["cover_name"],
+            cover_data["cover_url"],
+            _("Male") if cover_data["cover_gender"] else "Female",
+            cover_data["cover_members"],
+            _(cover_data["cover_difficulty"].capitalize()),
+            message.text.replace("-", "."),
+        ),
+        reply_markup=SaveCoverKeyboard()(),
+        parse_mode="HTML",
+    )
+    await state.set_state(FSMAdmin.save_cover)
+
+
+@router.message(StateFilter(FSMAdmin.save_cover))
+async def process_cover_save(
+    message: Message,
+    state: FSMContext,
+    cover_service: DefaultCoverService,
+    current_user: User,
+):
+    keyboard = BaseSuperadminKeyboard()() if current_user.is_superuser else BaseAdminKeyboard()()
+    if message.text == _("✅Save cover"):
+        cover_data = await state.get_data()
+        try:
+            cover = CoverDataClass(
+                author_id=message.from_user.id,
+                name=cover_data["cover_name"],
+                url=cover_data["cover_url"],
+                gender=cover_data["cover_gender"],
+                members=int(cover_data["cover_members"]),
+                difficult=DifficultEnum(cover_data["cover_difficulty"]),
+                publish_date=datetime.strptime(cover_data["cover_publish_date"], "%Y-%m-%d").date(),
+            )
+            await cover_service.create(cover_data=cover)
+            await message.answer(
+                text=_("<b>Cover has been added to the database</b>"),
+                reply_markup=keyboard,
+                parse_mode="HTML",
+            )
+            await state.clear()
+            if current_user.is_superuser:
+                await state.set_state(FSMSuperAdmin.main_menu)
+            elif current_user.is_staff:
+                await state.set_state(FSMAdmin.main_menu)
+        except Exception:
+            await state.clear()
+            await state.set_state(FSMAdmin.fill_cover_name)
+            await message.answer(
+                text=_("<b>Failed to add the cover to the database.</b>\n\n<b>Please try entering the data again</b>"),
+                parse_mode="HTML",
+            )
+            await message.answer(text=_("Please enter the name of the cover"))
+    elif message.text == _("🔄️Redo the cover form"):
+        await state.clear()
+        await state.set_state(FSMAdmin.fill_cover_name)
+        await message.answer(text=_("Please enter the name of the cover"))
+    elif message.text == _("❌Don't save the cover"):
+        await state.clear()
+        if current_user.is_superuser:
+            await state.set_state(FSMSuperAdmin.main_menu)
+        elif current_user.is_staff:
+            await state.set_state(FSMAdmin.main_menu)
+        await message.answer(text=_("<b>The changes are cancelled</b>"), reply_markup=keyboard, parse_mode="HTML")
 
 
 @router.message()

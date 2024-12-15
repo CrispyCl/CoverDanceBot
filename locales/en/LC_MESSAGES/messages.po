@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-15 16:23+0300\n"
+"POT-Creation-Date: 2024-12-15 23:38+0300\n"
 "PO-Revision-Date: 2024-12-05 19:32+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.16.0\n"
 
-#: bot/handlers/admin.py:42
+#: bot/handlers/admin.py:60
 msgid ""
 "<b>Welcome to the CoverDanceBot admin panel</b>\n"
 "\n"
@@ -26,7 +26,7 @@ msgid ""
 "actionsavailable to you."
 msgstr ""
 
-#: bot/handlers/admin.py:55
+#: bot/handlers/admin.py:73
 msgid ""
 "<b>Superadmin help section</b>\n"
 "\n"
@@ -40,7 +40,7 @@ msgid ""
 "<b>[🈹Change language]</b> - Changing the language of the bot interface"
 msgstr ""
 
-#: bot/handlers/admin.py:70
+#: bot/handlers/admin.py:88
 msgid ""
 "<b>Admin help section</b>\n"
 "\n"
@@ -52,44 +52,129 @@ msgid ""
 "<b>[🈹Change language]</b> - Changing the language of the bot interface"
 msgstr ""
 
-#: bot/handlers/admin.py:81 bot/keyboards/admin.py:10
+#: bot/handlers/admin.py:99 bot/keyboards/admin.py:10
 msgid "⚙️Admin management"
 msgstr ""
 
-#: bot/handlers/admin.py:85 bot/handlers/admin.py:127 bot/handlers/admin.py:154
-#: bot/handlers/admin.py:194
+#: bot/handlers/admin.py:103 bot/handlers/admin.py:150
+#: bot/handlers/admin.py:184 bot/handlers/admin.py:231
 msgid "List of admins: \n"
 msgstr ""
 
-#: bot/handlers/admin.py:95 bot/handlers/admin.py:109
+#: bot/handlers/admin.py:113 bot/handlers/admin.py:127
 msgid "Pleace enter the username"
 msgstr ""
 
-#: bot/handlers/admin.py:142 bot/handlers/admin.py:176
+#: bot/handlers/admin.py:165 bot/handlers/admin.py:206
 msgid "Please make sure this user is using a bot or try entering username again"
 msgstr ""
 
-#: bot/handlers/admin.py:147
+#: bot/handlers/admin.py:171
 msgid "This user is already an admin, try again or press [back]"
 msgstr ""
 
-#: bot/handlers/admin.py:151
+#: bot/handlers/admin.py:178
 msgid "Admin successfully added"
 msgstr ""
 
-#: bot/handlers/admin.py:181
+#: bot/handlers/admin.py:212
 msgid "This user is not an admin, try again or press [back]"
 msgstr ""
 
-#: bot/handlers/admin.py:186
+#: bot/handlers/admin.py:218
 msgid ""
 "You cannot revoke your administrator rights\n"
 "\n"
 "Enter another username or press [back]"
 msgstr ""
 
-#: bot/handlers/admin.py:191
+#: bot/handlers/admin.py:225
 msgid "Admin successfully deleted"
+msgstr ""
+
+#: bot/handlers/admin.py:239 bot/keyboards/admin.py:11
+#: bot/keyboards/admin.py:22
+msgid "📽️Add video"
+msgstr ""
+
+#: bot/handlers/admin.py:242 bot/handlers/admin.py:352
+#: bot/handlers/admin.py:356
+msgid "Please enter the name of the cover"
+msgstr ""
+
+#: bot/handlers/admin.py:248
+msgid "Please enter the link to the cover"
+msgstr ""
+
+#: bot/handlers/admin.py:255
+msgid "Select gender"
+msgstr ""
+
+#: bot/handlers/admin.py:262
+msgid "Enter the number of participants"
+msgstr ""
+
+#: bot/handlers/admin.py:263 bot/keyboards/admin.py:45
+msgid "Female"
+msgstr ""
+
+#: bot/handlers/admin.py:272
+msgid "Choose difficulty level"
+msgstr ""
+
+#: bot/handlers/admin.py:279
+msgid "Enter the date of publication of the cover in the format of YYYY-MM-DD"
+msgstr ""
+
+#: bot/handlers/admin.py:280 bot/keyboards/admin.py:55
+msgid "Easy"
+msgstr ""
+
+#: bot/handlers/admin.py:292
+msgid ""
+"<b>Please check the data entered:</b>\n"
+"\n"
+"Cover name: {}\n"
+"Cover url: {}\n"
+"Cover gender: {}\n"
+"Cover members count: {}\n"
+"Cover difficulty: {}\n"
+"Cover publish date: {}"
+msgstr ""
+
+#: bot/handlers/admin.py:303 bot/keyboards/admin.py:44
+msgid "Male"
+msgstr ""
+
+#: bot/handlers/admin.py:305
+msgid "cover_difficulty"
+msgstr ""
+
+#: bot/handlers/admin.py:322 bot/keyboards/admin.py:66
+msgid "✅Save cover"
+msgstr ""
+
+#: bot/handlers/admin.py:336
+msgid "<b>Cover has been added to the database</b>"
+msgstr ""
+
+#: bot/handlers/admin.py:349
+msgid ""
+"<b>Failed to add the cover to the database.</b>\n"
+"\n"
+"<b>Please try entering the data again</b>"
+msgstr ""
+
+#: bot/handlers/admin.py:353 bot/keyboards/admin.py:67
+msgid "🔄️Redo the cover form"
+msgstr ""
+
+#: bot/handlers/admin.py:357 bot/keyboards/admin.py:68
+msgid "❌Don't save the cover"
+msgstr ""
+
+#: bot/handlers/admin.py:364
+msgid "<b>The changes are cancelled</b>"
 msgstr ""
 
 #: bot/handlers/chat_settings.py:13 bot/keyboards/admin.py:13
@@ -168,10 +253,6 @@ msgstr ""
 msgid "🔍Find practice video"
 msgstr ""
 
-#: bot/keyboards/admin.py:11 bot/keyboards/admin.py:22
-msgid "📽️Add video"
-msgstr ""
-
 #: bot/keyboards/admin.py:32
 msgid "➕Add admin"
 msgstr ""
@@ -180,6 +261,14 @@ msgstr ""
 msgid "❌Delete admin"
 msgstr ""
 
-#: bot/keyboards/admin.py:35 bot/keyboards/admin.py:43
+#: bot/keyboards/admin.py:35 bot/keyboards/admin.py:76
 msgid "🔙Back"
+msgstr ""
+
+#: bot/keyboards/admin.py:56
+msgid "Middle"
+msgstr ""
+
+#: bot/keyboards/admin.py:57
+msgid "Hard"
 msgstr ""
