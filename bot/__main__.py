@@ -10,7 +10,8 @@ from aiogram.utils.i18n import I18n
 
 from config import Config, load_config
 from database import DefaultDatabase, PostgresDatabase
-from handlers import user_router
+from handlers import admin_router, chat_settings_router, user_router
+from keyboards.set_menu import setup_menu
 from logger import get_logger
 from middleware import setup as setup_middlewares
 from repository import CoverRepository, UserRepository
@@ -65,7 +66,7 @@ async def main() -> None:
     storage = RedisStorage(redis=redis)
 
     logger.debug("Connecting to the database...")
-    db = PostgresDatabase(config=config.posgres)
+    db = PostgresDatabase(config=config.postgres)
     try:
         await db.init_db()
     except Exception as e:
@@ -75,6 +76,12 @@ async def main() -> None:
     bot = Bot(token=config.bot.token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher(storage=storage)
     dp.workflow_data["logger"] = logger
+
+    logger.debug("Loading menu...")
+    try:
+        await setup_menu(bot)
+    except Exception as e:
+        logger.fatal("Menu loading failed: %s", str(e))
 
     logger.debug("Registering repositories...")
     user_repository = UserRepository(db)
@@ -87,6 +94,8 @@ async def main() -> None:
     dp.workflow_data["cover_service"] = cover_service
 
     logger.debug("Registering routers...")
+    dp.include_router(chat_settings_router)
+    dp.include_router(admin_router)
     dp.include_router(user_router)
 
     logger.debug("Initialising i18n...")

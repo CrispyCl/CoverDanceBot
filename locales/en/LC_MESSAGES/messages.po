@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-05 19:59+0300\n"
+"POT-Creation-Date: 2024-12-15 16:23+0300\n"
 "PO-Revision-Date: 2024-12-05 19:32+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,6 +18,168 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.16.0\n"
 
-#: bot/handlers/user.py:16
-msgid "Hello, {name}!"
+#: bot/handlers/admin.py:42
+msgid ""
+"<b>Welcome to the CoverDanceBot admin panel</b>\n"
+"\n"
+"Press <b>/help</b> in the menu to see a description of all the "
+"actionsavailable to you."
+msgstr ""
+
+#: bot/handlers/admin.py:55
+msgid ""
+"<b>Superadmin help section</b>\n"
+"\n"
+"<b>[🔍Find a practice video]</b> - Perform the video search procedure "
+"according to the specified parameters\n"
+"\n"
+"<b>[⚙️Admin management]</b> - Switching to the admin management menu\n"
+"\n"
+"<b>[➕Add video]</b> - Adding a new video to the bot's database\n"
+"\n"
+"<b>[🈹Change language]</b> - Changing the language of the bot interface"
+msgstr ""
+
+#: bot/handlers/admin.py:70
+msgid ""
+"<b>Admin help section</b>\n"
+"\n"
+"<b>[🔍Find a practice video]</b> - Perform the video search procedure "
+"according to the specified parameters\n"
+"\n"
+"<b>[📽️Add video]</b> - Adding a new video to the bot's database\n"
+"\n"
+"<b>[🈹Change language]</b> - Changing the language of the bot interface"
+msgstr ""
+
+#: bot/handlers/admin.py:81 bot/keyboards/admin.py:10
+msgid "⚙️Admin management"
+msgstr ""
+
+#: bot/handlers/admin.py:85 bot/handlers/admin.py:127 bot/handlers/admin.py:154
+#: bot/handlers/admin.py:194
+msgid "List of admins: \n"
+msgstr ""
+
+#: bot/handlers/admin.py:95 bot/handlers/admin.py:109
+msgid "Pleace enter the username"
+msgstr ""
+
+#: bot/handlers/admin.py:142 bot/handlers/admin.py:176
+msgid "Please make sure this user is using a bot or try entering username again"
+msgstr ""
+
+#: bot/handlers/admin.py:147
+msgid "This user is already an admin, try again or press [back]"
+msgstr ""
+
+#: bot/handlers/admin.py:151
+msgid "Admin successfully added"
+msgstr ""
+
+#: bot/handlers/admin.py:181
+msgid "This user is not an admin, try again or press [back]"
+msgstr ""
+
+#: bot/handlers/admin.py:186
+msgid ""
+"You cannot revoke your administrator rights\n"
+"\n"
+"Enter another username or press [back]"
+msgstr ""
+
+#: bot/handlers/admin.py:191
+msgid "Admin successfully deleted"
+msgstr ""
+
+#: bot/handlers/chat_settings.py:13 bot/keyboards/admin.py:13
+#: bot/keyboards/admin.py:23 bot/keyboards/user.py:10
+msgid "🈹Change language"
+msgstr ""
+
+#: bot/handlers/chat_settings.py:16
+msgid "Choose the neccesary language"
+msgstr ""
+
+#: bot/handlers/chat_settings.py:27 bot/handlers/chat_settings.py:32
+#: bot/handlers/chat_settings.py:37 bot/handlers/chat_settings.py:50
+#: bot/handlers/chat_settings.py:55 bot/handlers/chat_settings.py:60
+msgid "Your language has been changed to English"
+msgstr ""
+
+#: bot/handlers/user.py:29
+msgid ""
+"Hi, this is a bot for finding practice videos by (what we have...).\n"
+"\n"
+"Select Video Search to get started, or press /help to see a description "
+"of all available actions."
+msgstr ""
+
+#: bot/handlers/user.py:43
+msgid ""
+"<b>User assistance menu</b>\n"
+"\n"
+"<b>/start</b> - Start bot or update language settings\n"
+"\n"
+"<b>[Find practice videos]</b> - search for practice videos based on year,"
+" gender and dance direction\n"
+"\n"
+"<b>[Balance]</b> - go to the balance menu\n"
+"\n"
+"<b>[Daily Bonus]</b> - Receive a daily bonus in the form of tokens for "
+"balance\n"
+"\n"
+"<b>[Change Language]</b>- Change the language of the bot interface.\n"
+"\n"
+msgstr ""
+
+#: bot/handlers/user.py:60 bot/keyboards/user.py:9
+msgid "💰Balance"
+msgstr ""
+
+#: bot/handlers/user.py:64
+msgid ""
+"Your balance: {token_count}\n"
+"\n"
+"The cost of video retrieval is 500 tokens\n"
+"\n"
+"To top up your token balance, take advantage of the daily bonus"
+msgstr ""
+
+#: bot/handlers/user.py:74 bot/keyboards/user.py:9
+msgid "✨Daily bonus"
+msgstr ""
+
+#: bot/handlers/user.py:82
+msgid ""
+"You received a daily bonus\n"
+"\n"
+"Your current balance: {token_count}"
+msgstr ""
+
+#: bot/handlers/user.py:90
+msgid ""
+"You've already received a bonus today\n"
+"\n"
+"Please come back tomorrow"
+msgstr ""
+
+#: bot/keyboards/admin.py:8 bot/keyboards/admin.py:21 bot/keyboards/user.py:8
+msgid "🔍Find practice video"
+msgstr ""
+
+#: bot/keyboards/admin.py:11 bot/keyboards/admin.py:22
+msgid "📽️Add video"
+msgstr ""
+
+#: bot/keyboards/admin.py:32
+msgid "➕Add admin"
+msgstr ""
+
+#: bot/keyboards/admin.py:33
+msgid "❌Delete admin"
+msgstr ""
+
+#: bot/keyboards/admin.py:35 bot/keyboards/admin.py:43
+msgid "🔙Back"
 msgstr ""
