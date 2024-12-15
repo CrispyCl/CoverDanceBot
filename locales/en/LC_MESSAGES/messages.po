@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-14 22:46+0300\n"
+"POT-Creation-Date: 2024-12-15 16:23+0300\n"
 "PO-Revision-Date: 2024-12-05 19:32+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.16.0\n"
 
-#: bot/handlers/admin.py:41
+#: bot/handlers/admin.py:42
 msgid ""
 "<b>Welcome to the CoverDanceBot admin panel</b>\n"
 "\n"
@@ -26,7 +26,7 @@ msgid ""
 "actionsavailable to you."
 msgstr ""
 
-#: bot/handlers/admin.py:54
+#: bot/handlers/admin.py:55
 msgid ""
 "<b>Superadmin help section</b>\n"
 "\n"
@@ -40,7 +40,7 @@ msgid ""
 "<b>[🈹Change language]</b> - Changing the language of the bot interface"
 msgstr ""
 
-#: bot/handlers/admin.py:69
+#: bot/handlers/admin.py:70
 msgid ""
 "<b>Admin help section</b>\n"
 "\n"
@@ -52,43 +52,44 @@ msgid ""
 "<b>[🈹Change language]</b> - Changing the language of the bot interface"
 msgstr ""
 
-#: bot/handlers/admin.py:80 bot/keyboards/admin.py:10
+#: bot/handlers/admin.py:81 bot/keyboards/admin.py:10
 msgid "⚙️Admin management"
 msgstr ""
 
-#: bot/handlers/admin.py:84 bot/handlers/admin.py:122
+#: bot/handlers/admin.py:85 bot/handlers/admin.py:127 bot/handlers/admin.py:154
+#: bot/handlers/admin.py:194
 msgid "List of admins: \n"
 msgstr ""
 
-#: bot/handlers/admin.py:94 bot/handlers/admin.py:103
+#: bot/handlers/admin.py:95 bot/handlers/admin.py:109
 msgid "Pleace enter the username"
 msgstr ""
 
-#: bot/handlers/admin.py:134 bot/handlers/admin.py:147
+#: bot/handlers/admin.py:142 bot/handlers/admin.py:176
 msgid "Please make sure this user is using a bot or try entering username again"
 msgstr ""
 
-#: bot/handlers/admin.py:136
+#: bot/handlers/admin.py:147
 msgid "This user is already an admin, try again or press [back]"
 msgstr ""
 
-#: bot/handlers/admin.py:139
-msgid "Admin successfully added, enter another username or press [back]"
+#: bot/handlers/admin.py:151
+msgid "Admin successfully added"
 msgstr ""
 
-#: bot/handlers/admin.py:149
+#: bot/handlers/admin.py:181
 msgid "This user is not an admin, try again or press [back]"
 msgstr ""
 
-#: bot/handlers/admin.py:152
+#: bot/handlers/admin.py:186
 msgid ""
-"<b>You cannot revoke your administrator rights</b>\n"
+"You cannot revoke your administrator rights\n"
 "\n"
 "Enter another username or press [back]"
 msgstr ""
 
-#: bot/handlers/admin.py:157
-msgid "Admin successfully deleted, enter another username or press [back]"
+#: bot/handlers/admin.py:191
+msgid "Admin successfully deleted"
 msgstr ""
 
 #: bot/handlers/chat_settings.py:13 bot/keyboards/admin.py:13
@@ -182,4 +183,3 @@ msgstr ""
 #: bot/keyboards/admin.py:35 bot/keyboards/admin.py:43
 msgid "🔙Back"
 msgstr ""
-

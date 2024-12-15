@@ -1,4 +1,4 @@
-from aiogram import F, Router
+from aiogram import Bot, F, Router
 from aiogram.filters import Command, CommandStart, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
@@ -29,6 +29,8 @@ class FSMAdmin(StatesGroup):
 
 @router.message(CommandStart())
 async def process_admin_start(message: Message, state: FSMContext, user_service: DefaultUserService) -> None:
+    await message.delete()
+    await state.clear()
     user = await user_service.get_one(message.from_user.id)
     if user.is_superuser:
         keyboard = BaseSuperadminKeyboard()()
@@ -36,7 +38,6 @@ async def process_admin_start(message: Message, state: FSMContext, user_service:
     else:
         keyboard = BaseAdminKeyboard()()
         await state.set_state(FSMAdmin.main_menu)
-    await message.delete()
     await message.answer(
         text=_(
             "<b>Welcome to the CoverDanceBot admin panel</b>\n\n"
@@ -95,6 +96,11 @@ async def ask_for_new_admin_name(callback: CallbackQuery, state: FSMContext) -> 
         reply_markup=BackButton()(),
     )
     await state.set_state(FSMSuperAdmin.fill_username_to_add)
+    await state.update_data(
+        id=callback.id,
+        chat_id=callback.message.chat.id,
+        message_id=callback.message.message_id,
+    )
 
 
 @router.callback_query(F.data == "delete_admin_button_pressed", StateFilter(FSMSuperAdmin.admin_management_menu))
@@ -104,7 +110,11 @@ async def ask_for_delete_admin_name(callback: CallbackQuery, state: FSMContext):
         reply_markup=BackButton()(),
     )
     await state.set_state(FSMSuperAdmin.fill_username_to_delete)
-    await state.update_data({"admin_management_menu_message": callback})
+    await state.update_data(
+        id=callback.id,
+        chat_id=callback.message.chat.id,
+        message_id=callback.message.message_id,
+    )
 
 
 @router.callback_query(F.data == "back_button_pressed", StateFilter(FSMSuperAdmin.admin_management_menu))
@@ -127,34 +137,81 @@ async def back_to_admin_management_menu(callback: CallbackQuery, state: FSMConte
 
 
 @router.message(StateFilter(FSMSuperAdmin.fill_username_to_add))
-async def add_admin(message: Message, user_service: DefaultUserService) -> None:
+async def add_admin(message: Message, user_service: DefaultUserService, state: FSMContext, bot: Bot) -> None:
+    data = await state.get_data()
     user = await user_service.get_by_username(message.text.lstrip("@"))
     await message.delete()
     if not user:
-        await message.answer(_("Please make sure this user is using a bot or try entering username again"))
+        await bot.answer_callback_query(
+            callback_query_id=data["id"],
+            text=_("Please make sure this user is using a bot or try entering username again"),
+            show_alert=True,
+        )
     elif user.is_staff:
-        await message.answer(text=_("This user is already an admin, try again or press [back]"))
+        await bot.answer_callback_query(
+            callback_query_id=data["id"],
+            text=_("This user is already an admin, try again or press [back]"),
+            show_alert=True,
+        )
     else:
         await user_service.update_role(user.id, True)
-        await message.answer(text=_("Admin successfully added, enter another username or press [back]"))
+        await bot.answer_callback_query(
+            callback_query_id=data["id"], text=_("Admin successfully added"), show_alert=True,
+        )
+        await bot.edit_message_text(
+            chat_id=data["chat_id"],
+            message_id=data["message_id"],
+            text=_("List of admins: \n")
+            + "\n".join(["@" + str(user.username) for user in await user_service.get() if user.is_staff]),
+            reply_markup=AdminManagementInlineKeyboard()(),
+        )
+        await state.clear()
+        await state.set_state(FSMSuperAdmin.admin_management_menu)
 
 
-@router.message(F.text, StateFilter(FSMSuperAdmin.fill_username_to_delete))
-async def delete_admin(message: Message, current_user: User, user_service: DefaultUserService) -> None:
+@router.message(StateFilter(FSMSuperAdmin.fill_username_to_delete))
+async def delete_admin(
+    message: Message,
+    current_user: User,
+    user_service: DefaultUserService,
+    state: FSMContext,
+    bot: Bot,
+) -> None:
+    data = await state.get_data()
     await message.delete()
     user = await user_service.get_by_username(message.text.lstrip("@"))
     if not user:
-        await message.answer(_("Please make sure this user is using a bot or try entering username again"))
+        await bot.answer_callback_query(
+            callback_query_id=data["id"],
+            text=_("Please make sure this user is using a bot or try entering username again"),
+            show_alert=True,
+        )
     elif not user.is_staff:
-        await message.answer(text=_("This user is not an admin, try again or press [back]"))
+        await bot.answer_callback_query(
+            callback_query_id=data["id"],
+            text=_("This user is not an admin, try again or press [back]"),
+            show_alert=True,
+        )
     elif user.id == current_user.id:
-        await message.answer(
-            text=_("<b>You cannot revoke your administrator rights</b>\n\nEnter another username or press [back]"),
-            parse_mode="HTML",
+        await bot.answer_callback_query(
+            callback_query_id=data["id"],
+            text=_("You cannot revoke your administrator rights\n\nEnter another username or press [back]"),
+            show_alert=True,
         )
     else:
         await user_service.update_role(user.id, False)
-        await message.answer(text=_("Admin successfully deleted, enter another username or press [back]"))
+        await bot.answer_callback_query(
+            callback_query_id=data["id"], text=_("Admin successfully deleted"), show_alert=True,
+        )
+        await bot.edit_message_text(
+            chat_id=data["chat_id"],
+            message_id=data["message_id"],
+            text=_("List of admins: \n")
+            + "\n".join(["@" + str(user.username) for user in await user_service.get() if user.is_staff]),
+            reply_markup=AdminManagementInlineKeyboard()(),
+        )
+        await state.clear()
+        await state.set_state(FSMSuperAdmin.admin_management_menu)
 
 
 @router.message()
