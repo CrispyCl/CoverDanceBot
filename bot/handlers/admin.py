@@ -156,7 +156,9 @@ async def add_admin(message: Message, user_service: DefaultUserService, state: F
     else:
         await user_service.update_role(user.id, True)
         await bot.answer_callback_query(
-            callback_query_id=data["id"], text=_("Admin successfully added"), show_alert=True,
+            callback_query_id=data["id"],
+            text=_("Admin successfully added"),
+            show_alert=True,
         )
         await bot.edit_message_text(
             chat_id=data["chat_id"],
@@ -201,7 +203,9 @@ async def delete_admin(
     else:
         await user_service.update_role(user.id, False)
         await bot.answer_callback_query(
-            callback_query_id=data["id"], text=_("Admin successfully deleted"), show_alert=True,
+            callback_query_id=data["id"],
+            text=_("Admin successfully deleted"),
+            show_alert=True,
         )
         await bot.edit_message_text(
             chat_id=data["chat_id"],
