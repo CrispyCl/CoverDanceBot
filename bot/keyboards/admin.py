@@ -48,18 +48,6 @@ class ChooseGenderKeyboard:
         return ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True, one_time_keyboard=True)
 
 
-class ChooseDifficultKeyboard:
-    def __call__(self) -> ReplyKeyboardMarkup:
-        buttons: list[list[KeyboardButton]] = [
-            [
-                KeyboardButton(text=_("Easy")),
-                KeyboardButton(text=_("Middle")),
-                KeyboardButton(text=_("Hard")),
-            ],
-        ]
-        return ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True, one_time_keyboard=True)
-
-
 class SaveCoverKeyboard:
     def __call__(self) -> ReplyKeyboardMarkup:
         buttons: list[list[KeyboardButton]] = [
@@ -83,6 +71,5 @@ __all__ = [
     "BaseAdminKeyboard",
     "AdminManagementInlineKeyboard",
     "ChooseGenderKeyboard",
-    "ChooseDifficultKeyboard",
     "SaveCoverKeyboard",
 ]

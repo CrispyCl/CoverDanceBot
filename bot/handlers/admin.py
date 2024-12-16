@@ -1,10 +1,12 @@
+from datetime import datetime
+
+
 from aiogram import Bot, F, Router
 from aiogram.filters import Command, CommandStart, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import CallbackQuery, Message, ReplyKeyboardRemove
 from aiogram.utils.i18n import gettext as _
-from datetime import datetime
 
 
 from filters import IsAdminFilter, IsSuperAdminFilter
@@ -15,12 +17,14 @@ from keyboards import (
     BaseSuperadminKeyboard,
     ChooseDifficultKeyboard,
     ChooseGenderKeyboard,
+    ChooseGenderToSearchKeyboard,
+    CoverViewKeyboard,
     SaveCoverKeyboard,
 )
-from models import User
-from service import DefaultUserService, DefaultCoverService
-from repository import CoverDataClass
 from models import DifficultEnum
+from models import User
+from repository import CoverDataClass
+from service import DefaultCoverService, DefaultUserService
 
 
 router = Router()
@@ -43,14 +47,22 @@ class FSMAdmin(StatesGroup):
     fill_cover_difficulty = State()
     fill_cover_publish_date = State()
     save_cover = State()
+    fill_gender_to_search = State()
+    fill_year_to_search = State()
+    fill_members_to_search = State()
+    fill_difficulty_to_search = State()
+    view_cover = State()
 
 
 @router.message(CommandStart())
-async def process_admin_start(message: Message, state: FSMContext, user_service: DefaultUserService) -> None:
+async def process_admin_start(
+    message: Message,
+    current_user: User,
+    state: FSMContext,
+) -> None:
     await message.delete()
     await state.clear()
-    user = await user_service.get_one(message.from_user.id)
-    if user.is_superuser:
+    if current_user.is_superuser:
         keyboard = BaseSuperadminKeyboard()()
         await state.set_state(FSMSuperAdmin.main_menu)
     else:
@@ -239,7 +251,7 @@ async def delete_admin(
 @router.message(lambda m: m.text == _("📽️Add video"), StateFilter(FSMSuperAdmin.main_menu, FSMAdmin.main_menu))
 async def process_add_video_button(message: Message, state: FSMContext):
     await message.delete()
-    await message.answer(text=_("Please enter the name of the cover"))
+    await message.answer(text=_("Please enter the name of the cover"), reply_markup=ReplyKeyboardRemove())
     await state.set_state(FSMAdmin.fill_cover_name)
 
 
@@ -259,7 +271,7 @@ async def process_cover_url_input(message: Message, state: FSMContext):
 
 @router.message(StateFilter(FSMAdmin.fill_cover_gender))
 async def process_cover_gender_input(message: Message, state: FSMContext):
-    await message.answer(text=_("Enter the number of participants"))
+    await message.answer(text=_("Enter the number of participants"), reply_markup=ReplyKeyboardRemove())
     if message.text == _("Female"):
         await state.update_data(cover_gender=False)
     else:
@@ -269,16 +281,33 @@ async def process_cover_gender_input(message: Message, state: FSMContext):
 
 @router.message(StateFilter(FSMAdmin.fill_cover_members))
 async def process_cover_members_input(message: Message, state: FSMContext):
-    await message.answer(text=_("Choose difficulty level"), reply_markup=ChooseDifficultKeyboard()())
-    await state.update_data(cover_members=message.text)
-    await state.set_state(FSMAdmin.fill_cover_difficulty)
+    if int(message.text) < 3:
+        await message.answer(
+            text=_(
+                "<b>The number of participants in the cover may not be less than 3</b>\n\n"
+                "Please specify the number of participants again",
+            ),
+        )
+    elif int(message.text) > 9:
+        await message.answer(text=_("Choose difficulty level"), reply_markup=ChooseDifficultKeyboard()())
+        await state.update_data(cover_members=10)
+        await state.set_state(FSMAdmin.fill_cover_difficulty)
+    else:
+        await message.answer(text=_("Choose difficulty level"), reply_markup=ChooseDifficultKeyboard()())
+        await state.update_data(cover_members=message.text)
+        await state.set_state(FSMAdmin.fill_cover_difficulty)
 
 
 @router.message(StateFilter(FSMAdmin.fill_cover_difficulty))
 async def process_cover_difficulty_input(message: Message, state: FSMContext):
-    await message.answer(text=_("Enter the date of publication of the cover in the format of YYYY-MM-DD"))
+    await message.answer(
+        text=_("Enter the date of publication of the cover in the format of YYYY-MM-DD"),
+        reply_markup=ReplyKeyboardRemove(),
+    )
     if message.text == _("Easy"):
         await state.update_data(cover_difficulty="easy")
+    elif message.text == _("Middle"):
+        await state.update_data(cover_difficulty="middle")
     else:
         await state.update_data(cover_difficulty="hard")
     await state.set_state(FSMAdmin.fill_cover_publish_date)
@@ -286,29 +315,48 @@ async def process_cover_difficulty_input(message: Message, state: FSMContext):
 
 @router.message(StateFilter(FSMAdmin.fill_cover_publish_date))
 async def process_cover_publish_date_input(message: Message, state: FSMContext):
-    await state.update_data(cover_publish_date=message.text)
-    cover_data = await state.get_data()
-    await message.answer(
-        text=_(
-            "<b>Please check the data entered:</b>\n\n"
-            + "Cover name: {}\n"
-            + "Cover url: {}\n"
-            + "Cover gender: {}\n"
-            + "Cover members count: {}\n"
-            + "Cover difficulty: {}\n"
-            + "Cover publish date: {}",
-        ).format(
-            cover_data["cover_name"],
-            cover_data["cover_url"],
-            _("Male") if cover_data["cover_gender"] else "Female",
-            cover_data["cover_members"],
-            _(cover_data["cover_difficulty"].capitalize()),
-            message.text.replace("-", "."),
-        ),
-        reply_markup=SaveCoverKeyboard()(),
-        parse_mode="HTML",
-    )
-    await state.set_state(FSMAdmin.save_cover)
+    date = message.text.split("-")
+    try:
+        if (1900 <= int(date[0]) <= 2025) and (1 <= int(date[1]) <= 12) and (1 <= int(date[2]) <= 31):
+            await state.update_data(cover_publish_date=message.text)
+            cover_data = await state.get_data()
+            await message.answer(
+                text=_(
+                    "<b>Please check the data entered:</b>\n\n"
+                    + "Cover name: {}\n"
+                    + "Cover url: {}\n"
+                    + "Cover gender: {}\n"
+                    + "Cover members count: {}\n"
+                    + "Cover difficulty: {}\n"
+                    + "Cover publish date: {}",
+                ).format(
+                    cover_data["cover_name"],
+                    cover_data["cover_url"],
+                    _("Male") if cover_data["cover_gender"] else _("Female"),
+                    ">9" if int(cover_data["cover_members"]) == 10 else cover_data["cover_members"],
+                    _(cover_data["cover_difficulty"].capitalize()),
+                    message.text.replace("-", "."),
+                ),
+                reply_markup=SaveCoverKeyboard()(),
+                parse_mode="HTML",
+            )
+            await state.set_state(FSMAdmin.save_cover)
+        else:
+            await message.answer(
+                text=_(
+                    "<b>An invalid date has been entered or its format does not match the template.</b>\n\n"
+                    "Please enter the date again in <b>YYYY-MM-DD</b> format",
+                ),
+                parse_mode="HTML",
+            )
+    except Exception:
+        await message.answer(
+            text=_(
+                "<b>An invalid date has been entered or its format does not match the template.</b>\n\n"
+                "Please enter the date again in <b>YYYY-MM-DD</b> format",
+            ),
+            parse_mode="HTML",
+        )
 
 
 @router.message(StateFilter(FSMAdmin.save_cover))
@@ -361,6 +409,168 @@ async def process_cover_save(
         elif current_user.is_staff:
             await state.set_state(FSMAdmin.main_menu)
         await message.answer(text=_("<b>The changes are cancelled</b>"), reply_markup=keyboard, parse_mode="HTML")
+
+
+@router.message(
+    lambda m: m.text == _("🔍Find practice video"),
+    StateFilter(FSMAdmin.main_menu, FSMSuperAdmin.main_menu),
+)
+async def process_find_video_button(message: Message, state: FSMContext):
+    await message.answer(text=_("Choose gender"), reply_markup=ChooseGenderToSearchKeyboard()())
+    await state.set_state(FSMAdmin.fill_gender_to_search)
+
+
+@router.message(StateFilter(FSMAdmin.fill_gender_to_search))
+async def process_gender_search_input(message: Message, state: FSMContext):
+    await message.answer(
+        text=_("Enter a range of years to search for videos in YYYY-YYYY format"),
+        reply_markup=ReplyKeyboardRemove(),
+    )
+    if message.text == _("Male"):
+        await state.update_data(gender_to_search=True)
+    elif message.text == _("Female"):
+        await state.update_data(gender_to_search=False)
+    else:
+        await state.update_data(gender_to_search=None)
+    await state.set_state(FSMAdmin.fill_year_to_search)
+
+
+@router.message(StateFilter(FSMAdmin.fill_year_to_search))
+async def process_year_search_input(message: Message, state: FSMContext):
+    try:
+        years = message.text.split("-")
+        if (2000 <= int(years[0]) <= 2025) and (2000 <= int(years[1]) <= 2025):
+            await message.answer(text=_("Enter the number of participants"))
+            await state.update_data(start_year_to_search=int(years[0]), end_year_to_search=int(years[1]))
+            await state.set_state(FSMAdmin.fill_members_to_search)
+        else:
+            await message.answer(
+                text=_(
+                    "<b>Invalid range entered</b>\n\n" "Try entering the video search time range again",
+                ),
+                parse_mode="HTML",
+            )
+    except Exception:
+        await message.answer(
+            text=_(
+                "<b>Invalid range entered</b>\n\n" "Try entering the video search time range again",
+            ),
+            parse_mode="HTML",
+        )
+
+
+@router.message(StateFilter(FSMAdmin.fill_members_to_search))
+async def process_members_search_input(message: Message, state: FSMContext):
+    try:
+        members = int(message.text)
+        if members < 3:
+            await message.answer(
+                text=_(
+                    "<b>The number of participants in the cover may not be less than 3</b>\n\n"
+                    "Please specify the number of participants again",
+                ),
+                parse_mode="HTML",
+            )
+        elif members > 9:
+            await state.update_data(members_to_search=10)
+            await state.set_state(FSMAdmin.fill_difficulty_to_search)
+            await message.answer(text=_("Choose the cover difficulty level"), reply_markup=ChooseDifficultKeyboard()())
+        else:
+            await state.update_data(members_to_search=int(message.text))
+            await state.set_state(FSMAdmin.fill_difficulty_to_search)
+            await message.answer(text=_("Choose the cover difficulty level"), reply_markup=ChooseDifficultKeyboard()())
+    except Exception:
+        await message.answer(
+            text=_(
+                "<b>The number of participants in the cover may not be less than 3</b>\n\n"
+                "Please specify the number of participants again",
+            ),
+            parse_mode="HTML",
+        )
+
+
+@router.message(StateFilter(FSMAdmin.fill_difficulty_to_search))
+async def process_difficulty_search(
+    message: Message,
+    current_user: User,
+    cover_service: DefaultCoverService,
+    state: FSMContext,
+):
+    if message.text == "Высокий":
+        await state.update_data(difficulty_to_search="hard")
+    elif message.text == "Средний":
+        await state.update_data(difficulty_to_search="middle")
+    elif message.text == "Низкий":
+        await state.update_data(difficulty_to_search="easy")
+    search_data = await state.get_data()
+    covers = await cover_service.find(
+        gender=search_data["gender_to_search"],
+        members=search_data["members_to_search"],
+        difficult=search_data["difficulty_to_search"],
+        start_year=search_data["start_year_to_search"],
+        end_year=search_data["end_year_to_search"],
+    )
+    if len(covers) > 0:
+        await message.answer(text=_("Found the videos:"), reply_markup=CoverViewKeyboard()())
+        for i in range(len(covers) if len(covers) < 3 else 3):
+            await message.answer(
+                text=_("Name: {}\nGender: {}\nURL: {}").format(
+                    covers[i].name,
+                    _("Male") if covers[i].gender else _("Female"),
+                    covers[i].url,
+                ),
+            )
+        await state.update_data(last_viewed_cover=2)
+        await state.set_state(FSMAdmin.view_cover)
+    else:
+        await message.answer(
+            text=_("Sorry, no videos were found for this request"),
+            reply_markup=BaseSuperadminKeyboard()() if current_user.is_superuser else BaseAdminKeyboard()(),
+        )
+        await state.clear()
+        await state.set_state(FSMSuperAdmin.main_menu if current_user.is_superuser else FSMAdmin.main_menu)
+
+
+@router.message(StateFilter(FSMAdmin.view_cover))
+async def process_view_cover_menu(
+    message: Message,
+    cover_service: DefaultCoverService,
+    current_user: User,
+    state: FSMContext,
+):
+    if message.text == _("🔍Find more videos"):
+        search_data = await state.get_data()
+        last = search_data["last_viewed_cover"]
+        covers = await cover_service.find(
+            gender=search_data["gender_to_search"],
+            members=search_data["members_to_search"],
+            difficult=search_data["difficulty_to_search"],
+            start_year=search_data["start_year_to_search"],
+            end_year=search_data["end_year_to_search"],
+        )
+        if len(covers) > last + 1:
+            await message.answer(
+                text=_("Another one video found for you:\n\nName: {}\nGender: {}\nURL: {}").format(
+                    covers[last + 1].name,
+                    covers[last + 1].gender,
+                    covers[last + 1].url,
+                ),
+            )
+            await state.update_data(last_viewed_cover=last + 1)
+        else:
+            await message.answer(
+                text=_("Sorry, no more videos were found for this request"),
+                reply_markup=BaseSuperadminKeyboard()() if current_user.is_superuser else BaseAdminKeyboard()(),
+            )
+            await state.clear()
+            await state.set_state(FSMSuperAdmin.main_menu if current_user.is_superuser else FSMAdmin.main_menu)
+    elif message.text == _("🔙Back to menu"):
+        await message.answer(
+            text=_("🔙Quit video search"),
+            reply_markup=BaseSuperadminKeyboard()() if current_user.is_superuser else BaseAdminKeyboard()(),
+        )
+        await state.clear()
+        await state.set_state(FSMSuperAdmin.main_menu if current_user.is_superuser else FSMAdmin.main_menu)
 
 
 @router.message()
