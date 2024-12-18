@@ -1,13 +1,11 @@
 from datetime import datetime
 
-
 from aiogram import Bot, F, Router
 from aiogram.filters import Command, CommandStart, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message, ReplyKeyboardRemove
 from aiogram.utils.i18n import gettext as _
-
 
 from filters import IsAdminFilter, IsSuperAdminFilter
 from keyboards import (
@@ -271,31 +269,37 @@ async def process_cover_url_input(message: Message, state: FSMContext):
 
 @router.message(StateFilter(FSMAdmin.fill_cover_gender))
 async def process_cover_gender_input(message: Message, state: FSMContext):
-    await message.answer(text=_("Enter the number of participants"), reply_markup=ReplyKeyboardRemove())
     if message.text == _("Female"):
         await state.update_data(cover_gender=False)
-    else:
+    elif message.text == _("Male"):
         await state.update_data(cover_gender=True)
+    else:
+        await message.answer(text=_("Pleace, enter the gender using keyboard"))
+        return
+    await message.answer(text=_("Enter the number of participants"), reply_markup=ReplyKeyboardRemove())
     await state.set_state(FSMAdmin.fill_cover_members)
 
 
 @router.message(StateFilter(FSMAdmin.fill_cover_members))
 async def process_cover_members_input(message: Message, state: FSMContext):
-    if int(message.text) < 3:
-        await message.answer(
-            text=_(
-                "<b>The number of participants in the cover may not be less than 3</b>\n\n"
-                "Please specify the number of participants again",
-            ),
-        )
-    elif int(message.text) > 9:
-        await message.answer(text=_("Choose difficulty level"), reply_markup=ChooseDifficultKeyboard()())
-        await state.update_data(cover_members=10)
-        await state.set_state(FSMAdmin.fill_cover_difficulty)
+    if message.text.isdigit():
+        if int(message.text) < 3:
+            await message.answer(
+                text=_(
+                    "<b>The number of participants in the cover may not be less than 3</b>\n\n"
+                    "Please specify the number of participants again",
+                ),
+            )
+        elif int(message.text) > 9:
+            await message.answer(text=_("Choose difficulty level"), reply_markup=ChooseDifficultKeyboard()())
+            await state.update_data(cover_members=10)
+            await state.set_state(FSMAdmin.fill_cover_difficulty)
+        else:
+            await message.answer(text=_("Choose difficulty level"), reply_markup=ChooseDifficultKeyboard()())
+            await state.update_data(cover_members=int(message.text))
+            await state.set_state(FSMAdmin.fill_cover_difficulty)
     else:
-        await message.answer(text=_("Choose difficulty level"), reply_markup=ChooseDifficultKeyboard()())
-        await state.update_data(cover_members=message.text)
-        await state.set_state(FSMAdmin.fill_cover_difficulty)
+        await message.answer(text=_("Please enter a number, not text"))
 
 
 @router.message(StateFilter(FSMAdmin.fill_cover_difficulty))
@@ -308,7 +312,7 @@ async def process_cover_difficulty_input(message: Message, state: FSMContext):
         await state.update_data(cover_difficulty="easy")
     elif message.text == _("Middle"):
         await state.update_data(cover_difficulty="middle")
-    else:
+    elif message.text == _("Hard"):
         await state.update_data(cover_difficulty="hard")
     await state.set_state(FSMAdmin.fill_cover_publish_date)
 
@@ -422,16 +426,22 @@ async def process_find_video_button(message: Message, state: FSMContext):
 
 @router.message(StateFilter(FSMAdmin.fill_gender_to_search))
 async def process_gender_search_input(message: Message, state: FSMContext):
-    await message.answer(
-        text=_("Enter a range of years to search for videos in YYYY-YYYY format"),
-        reply_markup=ReplyKeyboardRemove(),
-    )
     if message.text == _("Male"):
         await state.update_data(gender_to_search=True)
     elif message.text == _("Female"):
         await state.update_data(gender_to_search=False)
-    else:
+    elif message.text == _("No matter"):
         await state.update_data(gender_to_search=None)
+    else:
+        await message.answer(
+            text=_("Please select the gender using the keyboard"),
+            reply_markup=ChooseGenderToSearchKeyboard()(),
+        )
+        return
+    await message.answer(
+        text=_("Enter a range of years to search for videos in YYYY-YYYY format"),
+        reply_markup=ReplyKeyboardRemove(),
+    )
     await state.set_state(FSMAdmin.fill_year_to_search)
 
 
@@ -496,12 +506,18 @@ async def process_difficulty_search(
     cover_service: DefaultCoverService,
     state: FSMContext,
 ):
-    if message.text == "Высокий":
+    if message.text == _("Hard"):
         await state.update_data(difficulty_to_search="hard")
-    elif message.text == "Средний":
+    elif message.text == _("Middle"):
         await state.update_data(difficulty_to_search="middle")
-    elif message.text == "Низкий":
+    elif message.text == _("Easy"):
         await state.update_data(difficulty_to_search="easy")
+    else:
+        await message.answer(
+            text=_("Please select the difficulty using the keyboard"),
+            reply_markup=ChooseDifficultKeyboard()(),
+        )
+        return
     search_data = await state.get_data()
     covers = await cover_service.find(
         gender=search_data["gender_to_search"],

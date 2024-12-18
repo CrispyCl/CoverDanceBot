@@ -116,23 +116,28 @@ async def process_find_video_button(
             ),
         )
     else:
-        await user_service.update_token(current_user.id, -1000)
         await message.answer(text=_("Choose gender"), reply_markup=ChooseGenderToSearchKeyboard()())
         await state.set_state(FSMUser.fill_gender_to_search)
 
 
 @router.message(StateFilter(FSMUser.fill_gender_to_search))
 async def process_gender_search_input(message: Message, state: FSMContext):
-    await message.answer(
-        text=_("Enter a range of years to search for videos in YYYY-YYYY format"),
-        reply_markup=ReplyKeyboardRemove(),
-    )
     if message.text == _("Male"):
         await state.update_data(gender_to_search=True)
     elif message.text == _("Female"):
         await state.update_data(gender_to_search=False)
-    else:
+    elif message.text == _("No matter"):
         await state.update_data(gender_to_search=None)
+    else:
+        await message.answer(
+            text=_("Please select the gender using the keyboard"),
+            reply_markup=ChooseGenderToSearchKeyboard()(),
+        )
+        return
+    await message.answer(
+        text=_("Enter a range of years to search for videos in YYYY-YYYY format"),
+        reply_markup=ReplyKeyboardRemove(),
+    )
     await state.set_state(FSMUser.fill_year_to_search)
 
 
@@ -198,12 +203,18 @@ async def process_difficulty_search(
     cover_service: DefaultCoverService,
     state: FSMContext,
 ):
-    if message.text == "Высокий":
+    if message.text == _("Hard"):
         await state.update_data(difficulty_to_search="hard")
-    elif message.text == "Средний":
+    elif message.text == _("Middle"):
         await state.update_data(difficulty_to_search="middle")
-    elif message.text == "Низкий":
+    elif message.text == _("Easy"):
         await state.update_data(difficulty_to_search="easy")
+    else:
+        await message.answer(
+            text=_("Please select the difficulty using the keyboard"),
+            reply_markup=ChooseDifficultKeyboard()(),
+        )
+        return
     search_data = await state.get_data()
     covers = await cover_service.find(
         gender=search_data["gender_to_search"],
@@ -222,6 +233,7 @@ async def process_difficulty_search(
                     covers[i].url,
                 ),
             )
+        await user_service.update_token(current_user.id, -500)
         await state.update_data(last_viewed_cover=2)
         await state.set_state(FSMUser.view_cover)
     else:
@@ -229,7 +241,6 @@ async def process_difficulty_search(
             text=_("Sorry, no videos were found for this request"),
             reply_markup=MainUserKeyboard()(),
         )
-        await user_service.update_token(current_user.id, 1000)
         await state.clear()
         await state.set_state(FSMUser.main_menu)
 
@@ -243,7 +254,7 @@ async def process_view_cover_menu(
     state: FSMContext,
 ):
     if message.text == _("🔍Find more videos"):
-        if current_user.token_count < 500:
+        if current_user.token_count < 250:
             await message.answer(
                 text=_(
                     "<b><i>Ooooops!</b></i>\n\n<b>You don't have enough tokens to search for more videos</b>\n\n"
@@ -264,15 +275,16 @@ async def process_view_cover_menu(
                 end_year=search_data["end_year_to_search"],
             )
             if len(covers) > last + 1:
-                await message.answer(
-                    text=_("Another one video found for you:\n\nName: {}\nGender: {}\nURL: {}").format(
-                        covers[last + 1].name,
-                        covers[last + 1].gender,
-                        covers[last + 1].url,
-                    ),
-                )
-                await user_service.update_token(current_user.id, -500)
-                await state.update_data(last_viewed_cover=last + 1)
+                for i in range(len(covers) - (last + 1) if len(covers) < 6 else 3):
+                    await message.answer(
+                        text=_("Another one video found for you:\n\nName: {}\nGender: {}\nURL: {}").format(
+                            covers[last + i].name,
+                            covers[last + i].gender,
+                            covers[last + i].url,
+                        ),
+                    )
+                    await user_service.update_token(current_user.id, -250)
+                    await state.update_data(last_viewed_cover=last + 1)
             else:
                 await message.answer(
                     text=_("Sorry, no more videos were found for this request"),
