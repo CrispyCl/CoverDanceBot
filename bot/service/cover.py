@@ -4,7 +4,7 @@ from logging import Logger
 from sqlalchemy.exc import IntegrityError, NoResultFound
 
 from models import Cover, DifficultEnum
-from repository import CoverDataClass, DefaultCoverRepository
+from repository import CoverDataClass, DefaultCoverRepository, GenderEnum
 from service import DefaultCoverService
 
 
@@ -48,11 +48,11 @@ class CoverService(DefaultCoverService):
     ) -> list[Cover]:
         try:
             return await self.repo.find(
-                gender,
+                GenderEnum(gender),
                 members,
                 DifficultEnum(difficult),
                 datetime.date(start_year, 1, 1),
-                datetime.date(end_year, 1, 1),
+                datetime.date(end_year, 12, 31),
             )
         except Exception as e:
             self.log.error("CoverRepository: %s" % e)

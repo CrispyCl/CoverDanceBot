@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-15 16:23+0300\n"
+"POT-Creation-Date: 2024-12-18 14:35+0300\n"
 "PO-Revision-Date: 2024-12-05 19:32+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.16.0\n"
 
-#: bot/handlers/admin.py:42
+#: bot/handlers/admin.py:70
 msgid ""
 "<b>Welcome to the CoverDanceBot admin panel</b>\n"
 "\n"
@@ -26,7 +26,7 @@ msgid ""
 "actionsavailable to you."
 msgstr ""
 
-#: bot/handlers/admin.py:55
+#: bot/handlers/admin.py:83
 msgid ""
 "<b>Superadmin help section</b>\n"
 "\n"
@@ -40,7 +40,7 @@ msgid ""
 "<b>[🈹Change language]</b> - Changing the language of the bot interface"
 msgstr ""
 
-#: bot/handlers/admin.py:70
+#: bot/handlers/admin.py:98
 msgid ""
 "<b>Admin help section</b>\n"
 "\n"
@@ -52,44 +52,246 @@ msgid ""
 "<b>[🈹Change language]</b> - Changing the language of the bot interface"
 msgstr ""
 
-#: bot/handlers/admin.py:81 bot/keyboards/admin.py:10
+#: bot/handlers/admin.py:109 bot/keyboards/admin.py:10
 msgid "⚙️Admin management"
 msgstr ""
 
-#: bot/handlers/admin.py:85 bot/handlers/admin.py:127 bot/handlers/admin.py:154
-#: bot/handlers/admin.py:194
+#: bot/handlers/admin.py:113 bot/handlers/admin.py:160
+#: bot/handlers/admin.py:194 bot/handlers/admin.py:241
 msgid "List of admins: \n"
 msgstr ""
 
-#: bot/handlers/admin.py:95 bot/handlers/admin.py:109
+#: bot/handlers/admin.py:123 bot/handlers/admin.py:137
 msgid "Pleace enter the username"
 msgstr ""
 
-#: bot/handlers/admin.py:142 bot/handlers/admin.py:176
+#: bot/handlers/admin.py:175 bot/handlers/admin.py:216
 msgid "Please make sure this user is using a bot or try entering username again"
 msgstr ""
 
-#: bot/handlers/admin.py:147
+#: bot/handlers/admin.py:181
 msgid "This user is already an admin, try again or press [back]"
 msgstr ""
 
-#: bot/handlers/admin.py:151
+#: bot/handlers/admin.py:188
 msgid "Admin successfully added"
 msgstr ""
 
-#: bot/handlers/admin.py:181
+#: bot/handlers/admin.py:222
 msgid "This user is not an admin, try again or press [back]"
 msgstr ""
 
-#: bot/handlers/admin.py:186
+#: bot/handlers/admin.py:228
 msgid ""
 "You cannot revoke your administrator rights\n"
 "\n"
 "Enter another username or press [back]"
 msgstr ""
 
-#: bot/handlers/admin.py:191
+#: bot/handlers/admin.py:235
 msgid "Admin successfully deleted"
+msgstr ""
+
+#: bot/handlers/admin.py:249 bot/keyboards/admin.py:11
+#: bot/keyboards/admin.py:22
+msgid "📽️Add video"
+msgstr ""
+
+#: bot/handlers/admin.py:252 bot/handlers/admin.py:401
+#: bot/handlers/admin.py:405
+msgid "Please enter the name of the cover"
+msgstr ""
+
+#: bot/handlers/admin.py:258
+msgid "Please enter the link to the cover"
+msgstr ""
+
+#: bot/handlers/admin.py:265
+msgid "Select gender"
+msgstr ""
+
+#: bot/handlers/admin.py:272 bot/handlers/admin.py:446 bot/handlers/user.py:146
+msgid "Enter the number of participants"
+msgstr ""
+
+#: bot/handlers/admin.py:273 bot/handlers/admin.py:336
+#: bot/handlers/admin.py:432 bot/handlers/admin.py:525 bot/handlers/user.py:131
+#: bot/handlers/user.py:225 bot/keyboards/admin.py:45
+#: bot/keyboards/common.py:11
+msgid "Female"
+msgstr ""
+
+#: bot/handlers/admin.py:275 bot/handlers/admin.py:336
+#: bot/handlers/admin.py:430 bot/handlers/admin.py:525 bot/handlers/user.py:129
+#: bot/handlers/user.py:225 bot/keyboards/admin.py:44 bot/keyboards/common.py:9
+msgid "Male"
+msgstr ""
+
+#: bot/handlers/admin.py:285 bot/handlers/admin.py:471
+#: bot/handlers/admin.py:487 bot/handlers/user.py:171 bot/handlers/user.py:187
+msgid ""
+"<b>The number of participants in the cover may not be less than 3</b>\n"
+"\n"
+"Please specify the number of participants again"
+msgstr ""
+
+#: bot/handlers/admin.py:291 bot/handlers/admin.py:295
+msgid "Choose difficulty level"
+msgstr ""
+
+#: bot/handlers/admin.py:299
+msgid "Please enter a number, not text"
+msgstr ""
+
+#: bot/handlers/admin.py:305
+msgid "Enter the date of publication of the cover in the format of YYYY-MM-DD"
+msgstr ""
+
+#: bot/handlers/admin.py:308 bot/handlers/admin.py:506 bot/handlers/user.py:207
+#: bot/keyboards/common.py:21
+msgid "Easy"
+msgstr ""
+
+#: bot/handlers/admin.py:310 bot/handlers/admin.py:504 bot/handlers/user.py:205
+#: bot/keyboards/common.py:22
+msgid "Middle"
+msgstr ""
+
+#: bot/handlers/admin.py:312 bot/handlers/admin.py:502 bot/handlers/user.py:203
+#: bot/keyboards/common.py:23
+msgid "Hard"
+msgstr ""
+
+#: bot/handlers/admin.py:325
+msgid ""
+"<b>Please check the data entered:</b>\n"
+"\n"
+"Cover name: {}\n"
+"Cover url: {}\n"
+"Cover gender: {}\n"
+"Cover members count: {}\n"
+"Cover difficulty: {}\n"
+"Cover publish date: {}"
+msgstr ""
+
+#: bot/handlers/admin.py:338
+msgid "cover_difficulty"
+msgstr ""
+
+#: bot/handlers/admin.py:347 bot/handlers/admin.py:355
+msgid ""
+"<b>An invalid date has been entered or its format does not match the "
+"template.</b>\n"
+"\n"
+"Please enter the date again in <b>YYYY-MM-DD</b> format"
+msgstr ""
+
+#: bot/handlers/admin.py:371 bot/keyboards/admin.py:54
+msgid "✅Save cover"
+msgstr ""
+
+#: bot/handlers/admin.py:385
+msgid "<b>Cover has been added to the database</b>"
+msgstr ""
+
+#: bot/handlers/admin.py:398
+msgid ""
+"<b>Failed to add the cover to the database.</b>\n"
+"\n"
+"<b>Please try entering the data again</b>"
+msgstr ""
+
+#: bot/handlers/admin.py:402 bot/keyboards/admin.py:55
+msgid "🔄️Redo the cover form"
+msgstr ""
+
+#: bot/handlers/admin.py:406 bot/keyboards/admin.py:56
+msgid "❌Don't save the cover"
+msgstr ""
+
+#: bot/handlers/admin.py:412
+msgid "<b>The changes are cancelled</b>"
+msgstr ""
+
+#: bot/handlers/admin.py:416 bot/handlers/user.py:102 bot/keyboards/admin.py:8
+#: bot/keyboards/admin.py:21 bot/keyboards/user.py:8
+msgid "🔍Find practice video"
+msgstr ""
+
+#: bot/handlers/admin.py:420 bot/handlers/user.py:119
+msgid "Choose gender"
+msgstr ""
+
+#: bot/handlers/admin.py:427 bot/handlers/user.py:126
+msgid "Enter a range of years to search for videos in YYYY-YYYY format"
+msgstr ""
+
+#: bot/handlers/admin.py:434 bot/handlers/user.py:133
+#: bot/keyboards/common.py:10
+msgid "No matter"
+msgstr ""
+
+#: bot/handlers/admin.py:437 bot/handlers/user.py:136
+msgid "Please select the gender using the keyboard"
+msgstr ""
+
+#: bot/handlers/admin.py:451 bot/handlers/admin.py:458 bot/handlers/user.py:151
+#: bot/handlers/user.py:158
+msgid ""
+"<b>Invalid range entered</b>\n"
+"\n"
+"Try entering the video search time range again"
+msgstr ""
+
+#: bot/handlers/admin.py:480 bot/handlers/admin.py:484 bot/handlers/user.py:180
+#: bot/handlers/user.py:184
+msgid "Choose the cover difficulty level"
+msgstr ""
+
+#: bot/handlers/admin.py:509 bot/handlers/user.py:210
+msgid "Please select the difficulty using the keyboard"
+msgstr ""
+
+#: bot/handlers/admin.py:520 bot/handlers/user.py:220
+msgid "Found the videos:"
+msgstr ""
+
+#: bot/handlers/admin.py:523 bot/handlers/user.py:223
+msgid ""
+"Name: {}\n"
+"Gender: {}\n"
+"URL: {}"
+msgstr ""
+
+#: bot/handlers/admin.py:533 bot/handlers/user.py:234
+msgid "Sorry, no videos were found for this request"
+msgstr ""
+
+#: bot/handlers/admin.py:547 bot/handlers/user.py:249
+#: bot/keyboards/common.py:33
+msgid "🔍Find more videos"
+msgstr ""
+
+#: bot/handlers/admin.py:559 bot/handlers/user.py:273
+msgid ""
+"Another one video found for you:\n"
+"\n"
+"Name: {}\n"
+"Gender: {}\n"
+"URL: {}"
+msgstr ""
+
+#: bot/handlers/admin.py:568 bot/handlers/user.py:283
+msgid "Sorry, no more videos were found for this request"
+msgstr ""
+
+#: bot/handlers/admin.py:573 bot/handlers/user.py:288
+#: bot/keyboards/common.py:34
+msgid "🔙Back to menu"
+msgstr ""
+
+#: bot/handlers/admin.py:575 bot/handlers/user.py:290
+msgid "🔙Quit video search"
 msgstr ""
 
 #: bot/handlers/chat_settings.py:13 bot/keyboards/admin.py:13
@@ -107,7 +309,7 @@ msgstr ""
 msgid "Your language has been changed to English"
 msgstr ""
 
-#: bot/handlers/user.py:29
+#: bot/handlers/user.py:34
 msgid ""
 "Hi, this is a bot for finding practice videos by (what we have...).\n"
 "\n"
@@ -115,7 +317,7 @@ msgid ""
 "of all available actions."
 msgstr ""
 
-#: bot/handlers/user.py:43
+#: bot/handlers/user.py:48
 msgid ""
 "<b>User assistance menu</b>\n"
 "\n"
@@ -133,11 +335,11 @@ msgid ""
 "\n"
 msgstr ""
 
-#: bot/handlers/user.py:60 bot/keyboards/user.py:9
+#: bot/handlers/user.py:65 bot/keyboards/user.py:9
 msgid "💰Balance"
 msgstr ""
 
-#: bot/handlers/user.py:64
+#: bot/handlers/user.py:69
 msgid ""
 "Your balance: {token_count}\n"
 "\n"
@@ -146,30 +348,40 @@ msgid ""
 "To top up your token balance, take advantage of the daily bonus"
 msgstr ""
 
-#: bot/handlers/user.py:74 bot/keyboards/user.py:9
+#: bot/handlers/user.py:79 bot/keyboards/user.py:9
 msgid "✨Daily bonus"
 msgstr ""
 
-#: bot/handlers/user.py:82
+#: bot/handlers/user.py:87
 msgid ""
 "You received a daily bonus\n"
 "\n"
 "Your current balance: {token_count}"
 msgstr ""
 
-#: bot/handlers/user.py:90
+#: bot/handlers/user.py:95
 msgid ""
 "You've already received a bonus today\n"
 "\n"
 "Please come back tomorrow"
 msgstr ""
 
-#: bot/keyboards/admin.py:8 bot/keyboards/admin.py:21 bot/keyboards/user.py:8
-msgid "🔍Find practice video"
+#: bot/handlers/user.py:113
+msgid ""
+"<b><i>Ooooops!</i></b>\n"
+"\n"
+"<b>You don't have enough tokens to search for videos</b>\n"
+"\n"
+"Press [💰Balance] to find out how you can get tokens"
 msgstr ""
 
-#: bot/keyboards/admin.py:11 bot/keyboards/admin.py:22
-msgid "📽️Add video"
+#: bot/handlers/user.py:252
+msgid ""
+"<b><i>Ooooops!</b></i>\n"
+"\n"
+"<b>You don't have enough tokens to search for more videos</b>\n"
+"\n"
+"Press [💰Balance] to find out how you can get tokens"
 msgstr ""
 
 #: bot/keyboards/admin.py:32
@@ -180,6 +392,10 @@ msgstr ""
 msgid "❌Delete admin"
 msgstr ""
 
-#: bot/keyboards/admin.py:35 bot/keyboards/admin.py:43
+#: bot/keyboards/admin.py:35 bot/keyboards/admin.py:64
 msgid "🔙Back"
 msgstr ""
+
+#~ msgid "Choose the cover difficulty"
+#~ msgstr ""
+
