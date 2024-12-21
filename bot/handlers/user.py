@@ -144,10 +144,10 @@ async def process_gender_search_input(message: Message, state: FSMContext):
 @router.message(StateFilter(FSMUser.fill_year_to_search))
 async def process_year_search_input(message: Message, state: FSMContext):
     try:
-        years = message.text.split("-")
-        if (2000 <= int(years[0]) <= 2025) and (2000 <= int(years[1]) <= 2025):
+        years = list(map(int, message.text.split("-")))
+        if (2014 <= years[0] <= 2025) and (2014 <= years[1] <= 2025):
             await message.answer(text=_("Enter the number of participants"))
-            await state.update_data(start_year_to_search=int(years[0]), end_year_to_search=int(years[1]))
+            await state.update_data(start_year_to_search=min(years), end_year_to_search=max(years))
             await state.set_state(FSMUser.fill_members_to_search)
         else:
             await message.answer(

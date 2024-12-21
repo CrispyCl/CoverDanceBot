@@ -39,7 +39,7 @@ class FSMSuperAdmin(StatesGroup):
 class FSMAdmin(StatesGroup):
     main_menu = State()
     fill_cover_name = State()
-    fil_cover_url = State()
+    fill_cover_url = State()
     fill_cover_gender = State()
     fill_cover_members = State()
     fill_cover_difficulty = State()
@@ -257,10 +257,10 @@ async def process_add_video_button(message: Message, state: FSMContext):
 async def process_cover_name_input(message: Message, state: FSMContext):
     await message.answer(text=_("Please enter the link to the cover"))
     await state.update_data(cover_name=message.text)
-    await state.set_state(FSMAdmin.fil_cover_url)
+    await state.set_state(FSMAdmin.fill_cover_url)
 
 
-@router.message(StateFilter(FSMAdmin.fil_cover_url))
+@router.message(StateFilter(FSMAdmin.fill_cover_url))
 async def process_cover_url_input(message: Message, state: FSMContext):
     await message.answer(text=_("Select gender"), reply_markup=ChooseGenderKeyboard()())
     await state.update_data(cover_url=message.text)
