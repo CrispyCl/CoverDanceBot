@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-24 09:26+0300\n"
+"POT-Creation-Date: 2024-12-24 23:12+0300\n"
 "PO-Revision-Date: 2024-12-05 19:32+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -81,7 +81,7 @@ msgid "⚙️Admin management"
 msgstr "⚙️Управление админами"
 
 #: bot/handlers/admin.py:113 bot/handlers/admin.py:160
-#: bot/handlers/admin.py:194 bot/handlers/admin.py:241
+#: bot/handlers/admin.py:194 bot/handlers/admin.py:249
 msgid "List of admins: \n"
 msgstr "Список админов: \n"
 
@@ -121,53 +121,63 @@ msgstr ""
 "\n"
 "Введите другое имя пользователя или нажмите [назад]"
 
-#: bot/handlers/admin.py:235
+#: bot/handlers/admin.py:234
+msgid ""
+"You can't revoke superadmin administrator rights\n"
+"\n"
+"Try entering a different username or press [back]"
+msgstr ""
+"Вы не можете лишить суперадмина прав администратора\n"
+"\n"
+"Введите другое имя пользователя или нажмите [назад]"
+
+#: bot/handlers/admin.py:243
 msgid "Admin successfully deleted"
 msgstr "Админ успешно удалён"
 
-#: bot/handlers/admin.py:249 bot/keyboards/admin.py:11
+#: bot/handlers/admin.py:257 bot/keyboards/admin.py:11
 #: bot/keyboards/admin.py:22
 msgid "📽️Add video"
 msgstr "📽️Добавить видео"
 
-#: bot/handlers/admin.py:252 bot/handlers/admin.py:404
-#: bot/handlers/admin.py:408
+#: bot/handlers/admin.py:260 bot/handlers/admin.py:413
+#: bot/handlers/admin.py:417
 msgid "Please enter the name of the cover"
 msgstr "Введите название кавера"
 
-#: bot/handlers/admin.py:258
+#: bot/handlers/admin.py:266
 msgid "Please enter the link to the cover"
 msgstr "Введите ссылку на кавер"
 
-#: bot/handlers/admin.py:265
+#: bot/handlers/admin.py:273
 msgid "Select gender"
 msgstr "Выберите пол"
 
-#: bot/handlers/admin.py:272 bot/handlers/admin.py:339
-#: bot/handlers/admin.py:431 bot/handlers/admin.py:535
-#: bot/handlers/admin.py:572 bot/handlers/user.py:127 bot/handlers/user.py:232
+#: bot/handlers/admin.py:280 bot/handlers/admin.py:348
+#: bot/handlers/admin.py:440 bot/handlers/admin.py:544
+#: bot/handlers/admin.py:581 bot/handlers/user.py:127 bot/handlers/user.py:232
 #: bot/handlers/user.py:285 bot/keyboards/admin.py:45
 #: bot/keyboards/common.py:11
 msgid "Female"
 msgstr "Женский"
 
-#: bot/handlers/admin.py:274 bot/handlers/admin.py:339
-#: bot/handlers/admin.py:429 bot/handlers/admin.py:535
-#: bot/handlers/admin.py:572 bot/handlers/user.py:125 bot/handlers/user.py:232
+#: bot/handlers/admin.py:282 bot/handlers/admin.py:348
+#: bot/handlers/admin.py:438 bot/handlers/admin.py:544
+#: bot/handlers/admin.py:581 bot/handlers/user.py:125 bot/handlers/user.py:232
 #: bot/handlers/user.py:285 bot/keyboards/admin.py:44 bot/keyboards/common.py:9
 msgid "Male"
 msgstr "Мужской"
 
-#: bot/handlers/admin.py:277
+#: bot/handlers/admin.py:285
 msgid "Pleace, enter the gender using keyboard"
 msgstr "Пожалуйста, выберите пол, используя клавиатуру"
 
-#: bot/handlers/admin.py:279 bot/handlers/admin.py:453 bot/handlers/user.py:149
+#: bot/handlers/admin.py:287 bot/handlers/admin.py:462 bot/handlers/user.py:149
 msgid "Enter the number of participants"
 msgstr "Введите количество участников"
 
-#: bot/handlers/admin.py:288 bot/handlers/admin.py:478
-#: bot/handlers/admin.py:494 bot/handlers/user.py:174 bot/handlers/user.py:190
+#: bot/handlers/admin.py:296 bot/handlers/admin.py:487
+#: bot/handlers/admin.py:503 bot/handlers/user.py:174 bot/handlers/user.py:190
 msgid ""
 "<b>The number of participants in the cover may not be less than 3</b>\n"
 "\n"
@@ -177,34 +187,34 @@ msgstr ""
 "\n"
 "Пожалуйста, введите количество участников снова"
 
-#: bot/handlers/admin.py:294 bot/handlers/admin.py:298
+#: bot/handlers/admin.py:302 bot/handlers/admin.py:306
 msgid "Choose difficulty level"
 msgstr "Выберите уровень сложности"
 
-#: bot/handlers/admin.py:302
+#: bot/handlers/admin.py:310
 msgid "Please enter a number, not text"
 msgstr "Пожалуйста, введите число"
 
-#: bot/handlers/admin.py:308
+#: bot/handlers/admin.py:316
 msgid "Enter the date of publication of the cover in the format of YYYY-MM-DD"
 msgstr "Введите дату публикации кавера в формате ГГГГ-ММ-ДД"
 
-#: bot/handlers/admin.py:311 bot/handlers/admin.py:513 bot/handlers/user.py:210
+#: bot/handlers/admin.py:319 bot/handlers/admin.py:522 bot/handlers/user.py:210
 #: bot/keyboards/common.py:21
 msgid "Easy"
 msgstr "Низкий"
 
-#: bot/handlers/admin.py:313 bot/handlers/admin.py:511 bot/handlers/user.py:208
+#: bot/handlers/admin.py:321 bot/handlers/admin.py:520 bot/handlers/user.py:208
 #: bot/keyboards/common.py:22
 msgid "Middle"
 msgstr "Средний"
 
-#: bot/handlers/admin.py:315 bot/handlers/admin.py:509 bot/handlers/user.py:206
+#: bot/handlers/admin.py:323 bot/handlers/admin.py:518 bot/handlers/user.py:206
 #: bot/keyboards/common.py:23
 msgid "Hard"
 msgstr "Высокий"
 
-#: bot/handlers/admin.py:328
+#: bot/handlers/admin.py:337
 msgid ""
 "<b>Please check the data entered:</b>\n"
 "\n"
@@ -224,11 +234,11 @@ msgstr ""
 "Уровень сложности: {}\n"
 "Дата публикации: {}"
 
-#: bot/handlers/admin.py:341
+#: bot/handlers/admin.py:350
 msgid "cover_difficulty"
 msgstr ""
 
-#: bot/handlers/admin.py:350 bot/handlers/admin.py:358
+#: bot/handlers/admin.py:359 bot/handlers/admin.py:367
 msgid ""
 "<b>An invalid date has been entered or its format does not match the "
 "template.</b>\n"
@@ -239,15 +249,15 @@ msgstr ""
 "\n"
 "Пожалуйста, введите дату заново в формате <b>ГГГГ-ММ-ДД</b>"
 
-#: bot/handlers/admin.py:374 bot/keyboards/admin.py:54
+#: bot/handlers/admin.py:383 bot/keyboards/admin.py:54
 msgid "✅Save cover"
 msgstr "✅Сохранить кавер"
 
-#: bot/handlers/admin.py:388
+#: bot/handlers/admin.py:397
 msgid "<b>Cover has been added to the database</b>"
 msgstr "<b>Кавер добавлен в базу данных</b>"
 
-#: bot/handlers/admin.py:401
+#: bot/handlers/admin.py:410
 msgid ""
 "<b>Failed to add the cover to the database.</b>\n"
 "\n"
@@ -257,41 +267,41 @@ msgstr ""
 "\n"
 "<b>Пожалуйста, попробуйте ввести данные ещё раз</b>"
 
-#: bot/handlers/admin.py:405 bot/keyboards/admin.py:55
+#: bot/handlers/admin.py:414 bot/keyboards/admin.py:55
 msgid "🔄️Redo the cover form"
 msgstr "🔄️Ввести данные заново"
 
-#: bot/handlers/admin.py:409 bot/keyboards/admin.py:56
+#: bot/handlers/admin.py:418 bot/keyboards/admin.py:56
 msgid "❌Don't save the cover"
 msgstr "❌Не сохранять кавер"
 
-#: bot/handlers/admin.py:415
+#: bot/handlers/admin.py:424
 msgid "<b>The changes are cancelled</b>"
 msgstr "<b>Изменения отменены</b>"
 
-#: bot/handlers/admin.py:419 bot/handlers/user.py:102 bot/keyboards/admin.py:8
+#: bot/handlers/admin.py:428 bot/handlers/user.py:102 bot/keyboards/admin.py:8
 #: bot/keyboards/admin.py:21 bot/keyboards/user.py:8
 msgid "🔍Find practice video"
 msgstr "🔍Найти практик-видео"
 
-#: bot/handlers/admin.py:423 bot/handlers/user.py:119
+#: bot/handlers/admin.py:432 bot/handlers/user.py:119
 msgid "Choose gender"
 msgstr "Выберите пол"
 
-#: bot/handlers/admin.py:433 bot/handlers/user.py:129
+#: bot/handlers/admin.py:442 bot/handlers/user.py:129
 #: bot/keyboards/common.py:10
 msgid "No matter"
 msgstr "Без разницы"
 
-#: bot/handlers/admin.py:437 bot/handlers/user.py:133
+#: bot/handlers/admin.py:446 bot/handlers/user.py:133
 msgid "Please select the gender using the keyboard"
 msgstr "Пожалуйста, выберите пол, используя клавиатуру"
 
-#: bot/handlers/admin.py:442 bot/handlers/user.py:138
+#: bot/handlers/admin.py:451 bot/handlers/user.py:138
 msgid "Enter a range of years to search for videos in YYYY-YYYY format"
 msgstr "Введите временной диапазон поиска в формате ГГГГ-ГГГГ"
 
-#: bot/handlers/admin.py:458 bot/handlers/admin.py:465 bot/handlers/user.py:154
+#: bot/handlers/admin.py:467 bot/handlers/admin.py:474 bot/handlers/user.py:154
 #: bot/handlers/user.py:161
 msgid ""
 "<b>Invalid range entered</b>\n"
@@ -302,20 +312,21 @@ msgstr ""
 "\n"
 "Попробуйте ввести временной диапазон поиска снова"
 
-#: bot/handlers/admin.py:487 bot/handlers/admin.py:491 bot/handlers/user.py:183
+#: bot/handlers/admin.py:496 bot/handlers/admin.py:500 bot/handlers/user.py:183
 #: bot/handlers/user.py:187
 msgid "Choose the cover difficulty level"
 msgstr "Выберите уровень сложности кавера"
 
-#: bot/handlers/admin.py:517 bot/handlers/user.py:214
+#: bot/handlers/admin.py:526 bot/handlers/user.py:214
 msgid "Please select the difficulty using the keyboard"
 msgstr "Пожалуйста, выберите сложность, используя клавиатуру"
 
-#: bot/handlers/admin.py:530 bot/handlers/user.py:227
+#: bot/handlers/admin.py:539 bot/handlers/user.py:227
 msgid "Found the videos:"
 msgstr "Для вас найдены видео:"
 
-#: bot/handlers/admin.py:533 bot/handlers/admin.py:570 bot/handlers/user.py:281
+#: bot/handlers/admin.py:542 bot/handlers/admin.py:579 bot/handlers/user.py:230
+#: bot/handlers/user.py:281
 msgid ""
 "Name: {}\n"
 "Gender: {}\n"
@@ -324,27 +335,28 @@ msgid ""
 msgstr ""
 "Название: {}\n"
 "Пол: {}\n"
-"URL: {}Дата публикации: {}"
+"URL: {}\n"
+"Дата публикации: {}"
 
-#: bot/handlers/admin.py:544 bot/handlers/user.py:242
+#: bot/handlers/admin.py:553 bot/handlers/user.py:242
 msgid "Sorry, no videos were found for this request"
 msgstr "Извините, по вашему запросу не найдено ни одного видео"
 
-#: bot/handlers/admin.py:558 bot/handlers/user.py:257
+#: bot/handlers/admin.py:567 bot/handlers/user.py:257
 #: bot/keyboards/common.py:33
 msgid "🔍Find more videos"
 msgstr "🔍Найти ещё видео"
 
-#: bot/handlers/admin.py:580 bot/handlers/user.py:294
+#: bot/handlers/admin.py:589 bot/handlers/user.py:294
 msgid "Sorry, no more videos were found for this request"
 msgstr "Извините, по вашему запросу не удалось найти больше видео"
 
-#: bot/handlers/admin.py:585 bot/handlers/user.py:299
+#: bot/handlers/admin.py:594 bot/handlers/user.py:299
 #: bot/keyboards/common.py:34
 msgid "🔙Back to menu"
 msgstr "🔙Назад в меню"
 
-#: bot/handlers/admin.py:587 bot/handlers/user.py:301
+#: bot/handlers/admin.py:596 bot/handlers/user.py:301
 msgid "🔙Quit video search"
 msgstr "🔙Выйти из поиска видео"
 
@@ -461,18 +473,6 @@ msgstr ""
 "<b>У вас недостаточно токенов, чтобы выполнить поиск видео</b>\n"
 "\n"
 "Нажмите [💰Баланс], чтобы узнать, как можно получить токены"
-
-#: bot/handlers/user.py:230
-msgid ""
-"Name: {}\n"
-"Gender: {}\n"
-"URL: {}\n"
-"Date of publication: {}"
-msgstr ""
-"Название: {}\n"
-"Пол: {}\n"
-"URL: {}\n"
-"Дата публикации: {}"
 
 #: bot/handlers/user.py:260
 msgid ""

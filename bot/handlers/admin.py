@@ -228,6 +228,14 @@ async def delete_admin(
             text=_("You cannot revoke your administrator rights\n\nEnter another username or press [back]"),
             show_alert=True,
         )
+    elif user.is_superuser:
+        await bot.answer_callback_query(
+            callback_query_id=data["id"],
+            text=_(
+                "You can't revoke superadmin administrator rights\n\nTry entering a different username or press [back]",
+            ),
+            show_alert=True,
+        )
     else:
         await user_service.update_role(user.id, False)
         await bot.answer_callback_query(
@@ -321,7 +329,7 @@ async def process_cover_difficulty_input(message: Message, state: FSMContext):
 async def process_cover_publish_date_input(message: Message, state: FSMContext):
     date = message.text.split("-")
     try:
-        if (1900 <= int(date[0]) <= 2025) and (1 <= int(date[1]) <= 12) and (1 <= int(date[2]) <= 31):
+        if (2014 <= int(date[0]) <= 2025) and (1 <= int(date[1]) <= 12) and (1 <= int(date[2]) <= 31):
             await state.update_data(cover_publish_date=message.text)
             cover_data = await state.get_data()
             await message.answer(
@@ -339,7 +347,7 @@ async def process_cover_publish_date_input(message: Message, state: FSMContext):
                     _("Male") if cover_data["cover_gender"] else _("Female"),
                     ">9" if int(cover_data["cover_members"]) == 10 else cover_data["cover_members"],
                     _(cover_data["cover_difficulty"].capitalize()),
-                    message.text.replace("-", "."),
+                    datetime.strptime(message.text, "%Y-%m-%d").date(),
                 ),
                 reply_markup=SaveCoverKeyboard()(),
                 parse_mode="HTML",
