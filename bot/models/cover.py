@@ -1,6 +1,6 @@
 from enum import Enum as PyEnum
 
-from sqlalchemy import Boolean, Column, Date, Enum, ForeignKey, Integer, orm, String
+from sqlalchemy import BigInteger, Boolean, Column, Date, Enum, ForeignKey, Integer, orm, String
 
 from database import Base
 
@@ -15,7 +15,7 @@ class Cover(Base):
     __tablename__ = "covers"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    author_id = Column(Integer, ForeignKey("users.id"))
+    author_id = Column(BigInteger, ForeignKey("users.id"))
     name = Column(String, nullable=False)
     url = Column(String, nullable=False)
     gender = Column(Boolean, nullable=False)

@@ -599,9 +599,4 @@ async def process_view_cover_menu(
         await state.set_state(FSMSuperAdmin.main_menu if current_user.is_superuser else FSMAdmin.main_menu)
 
 
-@router.message()
-async def process_any_message(message: Message):
-    await message.delete()
-
-
 __all__ = ["router"]

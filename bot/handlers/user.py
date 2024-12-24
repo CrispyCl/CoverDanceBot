@@ -1,4 +1,5 @@
 from aiogram import Router
+from aiogram.dispatcher.event.bases import UNHANDLED
 from aiogram.filters import Command, CommandStart, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
@@ -308,6 +309,7 @@ async def process_view_cover_menu(
 @router.message()
 async def process_any_invalid_message(message: Message):
     await message.delete()
+    return UNHANDLED
 
 
 __all__ = ["router"]
