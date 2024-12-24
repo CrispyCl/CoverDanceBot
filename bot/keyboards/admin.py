@@ -37,6 +37,27 @@ class AdminManagementInlineKeyboard:
         return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
+class ChooseGenderKeyboard:
+    def __call__(self) -> ReplyKeyboardMarkup:
+        buttons: list[list[KeyboardButton]] = [
+            [
+                KeyboardButton(text=_("Male")),
+                KeyboardButton(text=_("Female")),
+            ],
+        ]
+        return ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True, one_time_keyboard=True)
+
+
+class SaveCoverKeyboard:
+    def __call__(self) -> ReplyKeyboardMarkup:
+        buttons: list[list[KeyboardButton]] = [
+            [KeyboardButton(text=_("✅Save cover"))],
+            [KeyboardButton(text=_("🔄️Redo the cover form"))],
+            [KeyboardButton(text=_("❌Don't save the cover"))],
+        ]
+        return ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True, one_time_keyboard=True)
+
+
 class BackButton:
     def __call__(self) -> InlineKeyboardMarkup:
         return InlineKeyboardMarkup(
@@ -44,4 +65,11 @@ class BackButton:
         )
 
 
-__all__ = ["BaseSuperadminKeyboard", "BackButton", "BaseAdminKeyboard", "AdminManagementInlineKeyboard"]
+__all__ = [
+    "BaseSuperadminKeyboard",
+    "BackButton",
+    "BaseAdminKeyboard",
+    "AdminManagementInlineKeyboard",
+    "ChooseGenderKeyboard",
+    "SaveCoverKeyboard",
+]

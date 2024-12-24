@@ -111,4 +111,4 @@ class DefaultCoverRepository(ABC):
         """Delete cover method."""
 
 
-__all__ = ["DefaultCoverRepository", "DefaultUserRepository", "CoverDataClass", "UserDataClass"]
+__all__ = ["DefaultCoverRepository", "DefaultUserRepository", "CoverDataClass", "UserDataClass", "GenderEnum"]

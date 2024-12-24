@@ -1,4 +1,12 @@
-from keyboards.admin import AdminManagementInlineKeyboard, BackButton, BaseAdminKeyboard, BaseSuperadminKeyboard
+from keyboards.admin import (
+    AdminManagementInlineKeyboard,
+    BackButton,
+    BaseAdminKeyboard,
+    BaseSuperadminKeyboard,
+    ChooseGenderKeyboard,
+    SaveCoverKeyboard,
+)
+from keyboards.common import ChooseDifficultKeyboard, ChooseGenderToSearchKeyboard, CoverViewKeyboard
 from keyboards.set_menu import setup_menu
 from keyboards.user import LanguageSelectionInlineKeyboard, MainUserKeyboard
 
@@ -11,4 +19,9 @@ __all__ = [
     "BackButton",
     "MainUserKeyboard",
     "LanguageSelectionInlineKeyboard",
+    "ChooseGenderKeyboard",
+    "ChooseDifficultKeyboard",
+    "SaveCoverKeyboard",
+    "ChooseGenderToSearchKeyboard",
+    "CoverViewKeyboard",
 ]
