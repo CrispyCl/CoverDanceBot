@@ -21,7 +21,7 @@ class PostgresConfig:
 
 
 class Database(DefaultDatabase):
-    """Posgres Database class"""
+    """Postgres Database class"""
 
     def __init__(self, config: PostgresConfig):
         self.config = config

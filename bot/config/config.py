@@ -24,7 +24,7 @@ class Config:
     bot: BotConfig
     logger: LoggerConfig
     redis: RedisConfig
-    posgres: PostgresConfig
+    postgres: PostgresConfig
 
 
 def load_config(path: str | None = None) -> Config:
@@ -47,7 +47,7 @@ def load_config(path: str | None = None) -> Config:
             port=env.int("REDIS_PORT", default=6379),
             db=env.int("REDIS_DB", default=0),
         ),
-        posgres=PostgresConfig(
+        postgres=PostgresConfig(
             user=env("POSTGRES_USER", default=""),
             password=env("POSTGRES_PASSWORD", default=""),
             db_name=env("POSTGRES_DB", default=""),

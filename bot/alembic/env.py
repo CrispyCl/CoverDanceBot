@@ -8,7 +8,7 @@ from database import Base
 from models import Cover, User  # noqa: F401
 
 db_config = load_config()
-database_url = db_config.posgres.get_database_url()
+database_url = db_config.postgres.get_database_url()
 
 config = context.config
 config.set_main_option("sqlalchemy.url", database_url)
