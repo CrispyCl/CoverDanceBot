@@ -328,11 +328,11 @@ async def process_cover_publish_date_input(message: Message, state: FSMContext):
                 text=_(
                     "<b>Please check the data entered:</b>\n\n"
                     + "Cover name: {}\n"
-                    + "Cover url: {}\n"
-                    + "Cover gender: {}\n"
-                    + "Cover members count: {}\n"
-                    + "Cover difficulty: {}\n"
-                    + "Cover publish date: {}",
+                    + "Url: {}\n"
+                    + "Gender: {}\n"
+                    + "Members count: {}\n"
+                    + "Difficulty: {}\n"
+                    + "Publish date: {}",
                 ).format(
                     cover_data["cover_name"],
                     cover_data["cover_url"],
@@ -449,7 +449,7 @@ async def process_gender_search_input(message: Message, state: FSMContext):
 async def process_year_search_input(message: Message, state: FSMContext):
     try:
         years = message.text.split("-")
-        if (2000 <= int(years[0]) <= 2025) and (2000 <= int(years[1]) <= 2025):
+        if (2014 <= int(years[0]) <= 2025) and (2014 <= int(years[1]) <= 2025):
             await message.answer(text=_("Enter the number of participants"))
             await state.update_data(start_year_to_search=int(years[0]), end_year_to_search=int(years[1]))
             await state.set_state(FSMAdmin.fill_members_to_search)
@@ -530,10 +530,11 @@ async def process_difficulty_search(
         await message.answer(text=_("Found the videos:"), reply_markup=CoverViewKeyboard()())
         for i in range(len(covers) if len(covers) < 3 else 3):
             await message.answer(
-                text=_("Name: {}\nGender: {}\nURL: {}").format(
+                text=_("Name: {}\nGender: {}\nURL: {}\nDate of publication: {}").format(
                     covers[i].name,
                     _("Male") if covers[i].gender else _("Female"),
                     covers[i].url,
+                    covers[i].publish_date,
                 ),
             )
         await state.update_data(last_viewed_cover=2)
@@ -566,10 +567,11 @@ async def process_view_cover_menu(
         )
         if len(covers) > last + 1:
             await message.answer(
-                text=_("Another one video found for you:\n\nName: {}\nGender: {}\nURL: {}").format(
+                text=_("Name: {}\nGender: {}\nURL: {}\nDate of publication: {}").format(
                     covers[last + 1].name,
-                    covers[last + 1].gender,
+                    _("Male") if covers[last + 1].gender else _("Female"),
                     covers[last + 1].url,
+                    covers[last + 1].publish_date,
                 ),
             )
             await state.update_data(last_viewed_cover=last + 1)

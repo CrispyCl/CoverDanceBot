@@ -227,10 +227,11 @@ async def process_difficulty_search(
         await message.answer(text=_("Found the videos:"), reply_markup=CoverViewKeyboard()())
         for i in range(len(covers) if len(covers) < 3 else 3):
             await message.answer(
-                text=_("Name: {}\nGender: {}\nURL: {}").format(
+                text=_("Name: {}\nGender: {}\nURL: {}\nDate of publication: {}").format(
                     covers[i].name,
                     _("Male") if covers[i].gender else _("Female"),
                     covers[i].url,
+                    covers[i].publish_date,
                 ),
             )
         await user_service.update_token(current_user.id, -500)
@@ -277,10 +278,13 @@ async def process_view_cover_menu(
             if len(covers) > last + 1:
                 for i in range(len(covers) - (last + 1) if len(covers) < 6 else 3):
                     await message.answer(
-                        text=_("Another one video found for you:\n\nName: {}\nGender: {}\nURL: {}").format(
+                        text=_(
+                            "Name: {}\nGender: {}\nURL: {}\nDate of publication: {}",
+                        ).format(
                             covers[last + i].name,
-                            covers[last + i].gender,
+                            _("Male") if covers[last + 1].gender else _("Female"),
                             covers[last + i].url,
+                            covers[i].publish_date,
                         ),
                     )
                     await user_service.update_token(current_user.id, -250)
