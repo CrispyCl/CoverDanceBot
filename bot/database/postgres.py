@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
 from database import Base, DefaultDatabase
+from models import Cover, User  # noqa: F401
 
 
 @dataclass
@@ -20,7 +21,7 @@ class PostgresConfig:
 
 
 class Database(DefaultDatabase):
-    """Posgres Database class"""
+    """Postgres Database class"""
 
     def __init__(self, config: PostgresConfig):
         self.config = config

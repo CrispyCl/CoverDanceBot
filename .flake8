@@ -2,7 +2,7 @@
 exclude = .git,__pycache__,venv,versions
 max-complexity = 12
 import-order-style = google
-application-import-names = config, handlers, logger, database
+application-import-names = config, handlers, logger, database, models, repository, exceptions, service, middleware, filters, keyboards
 max-line-length = 120
 black-config = pyproject.toml
 inline-quotes = "

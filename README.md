@@ -68,7 +68,7 @@ copy .env.example .env
 
 Enter the environment variables in the .env file
 
-### Launch redis and posgres
+### Launch redis and postgres
 
 ```bash
 docker compose up -d redis postgres
