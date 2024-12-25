@@ -30,15 +30,16 @@ async def process_start_command(message: Message, state: FSMContext) -> None:
     Args:
         message (Message):
     """
-
+    await message.delete()
     await message.answer(
         text=_(
-            "Hi, this is a bot for finding practice videos by (what we have...).\n\n"
+            "Hi, this is a bot for finding practice videos by kpop cover dance.\n\n"
             "Select Video Search to get started, or press /help to see a description "
             "of all available actions.",
         ),
         reply_markup=MainUserKeyboard()(),
     )
+    await state.clear()
     await state.set_state(FSMUser.main_menu)
 
 
@@ -136,7 +137,7 @@ async def process_gender_search_input(message: Message, state: FSMContext):
         )
         return
     await message.answer(
-        text=_("Enter a range of years to search for videos in YYYY-YYYY format"),
+        text=_("Enter a year (YYYY) or range of years (YYYY-YYYY) to search for videos"),
         reply_markup=ReplyKeyboardRemove(),
     )
     await state.set_state(FSMUser.fill_year_to_search)
@@ -146,17 +147,22 @@ async def process_gender_search_input(message: Message, state: FSMContext):
 async def process_year_search_input(message: Message, state: FSMContext):
     try:
         years = list(map(int, message.text.split("-")))
-        if (2014 <= years[0] <= 2025) and (2014 <= years[1] <= 2025):
+        if len(years) == 1:
             await message.answer(text=_("Enter the number of participants"))
-            await state.update_data(start_year_to_search=min(years), end_year_to_search=max(years))
+            await state.update_data(start_year_to_search=years[0], end_year_to_search=years[0])
             await state.set_state(FSMUser.fill_members_to_search)
         else:
-            await message.answer(
-                text=_(
-                    "<b>Invalid range entered</b>\n\n" "Try entering the video search time range again",
-                ),
-                parse_mode="HTML",
-            )
+            if (2014 <= years[0] <= 2025) and (2014 <= years[1] <= 2025):
+                await message.answer(text=_("Enter the number of participants"))
+                await state.update_data(start_year_to_search=min(years), end_year_to_search=max(years))
+                await state.set_state(FSMUser.fill_members_to_search)
+            else:
+                await message.answer(
+                    text=_(
+                        "<b>Invalid range entered</b>\n\n" "Try entering the video search time range again",
+                    ),
+                    parse_mode="HTML",
+                )
     except Exception:
         await message.answer(
             text=_(

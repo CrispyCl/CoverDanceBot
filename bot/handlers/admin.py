@@ -172,15 +172,31 @@ async def add_admin(message: Message, user_service: DefaultUserService, state: F
     if not user:
         await bot.answer_callback_query(
             callback_query_id=data["id"],
-            text=_("Please make sure this user is using a bot or try entering username again"),
+            text=_("Please make sure this user is using a bot"),
             show_alert=True,
         )
+        await bot.edit_message_text(
+            chat_id=data["chat_id"],
+            message_id=data["message_id"],
+            text=_("List of admins: \n")
+            + "\n".join(["@" + str(user.username) for user in await user_service.get() if user.is_staff]),
+            reply_markup=AdminManagementInlineKeyboard()(),
+        )
+        await state.set_state(FSMSuperAdmin.admin_management_menu)
     elif user.is_staff:
         await bot.answer_callback_query(
             callback_query_id=data["id"],
-            text=_("This user is already an admin, try again or press [back]"),
+            text=_("This user is already an admin"),
             show_alert=True,
         )
+        await bot.edit_message_text(
+            chat_id=data["chat_id"],
+            message_id=data["message_id"],
+            text=_("List of admins: \n")
+            + "\n".join(["@" + str(user.username) for user in await user_service.get() if user.is_staff]),
+            reply_markup=AdminManagementInlineKeyboard()(),
+        )
+        await state.set_state(FSMSuperAdmin.admin_management_menu)
     else:
         await user_service.update_role(user.id, True)
         await bot.answer_callback_query(
@@ -213,29 +229,61 @@ async def delete_admin(
     if not user:
         await bot.answer_callback_query(
             callback_query_id=data["id"],
-            text=_("Please make sure this user is using a bot or try entering username again"),
+            text=_("Please make sure this user is using a bot"),
             show_alert=True,
         )
+        await bot.edit_message_text(
+            chat_id=data["chat_id"],
+            message_id=data["message_id"],
+            text=_("List of admins: \n")
+            + "\n".join(["@" + str(user.username) for user in await user_service.get() if user.is_staff]),
+            reply_markup=AdminManagementInlineKeyboard()(),
+        )
+        await state.set_state(FSMSuperAdmin.admin_management_menu)
     elif not user.is_staff:
         await bot.answer_callback_query(
             callback_query_id=data["id"],
-            text=_("This user is not an admin, try again or press [back]"),
+            text=_("This user is not an admin"),
             show_alert=True,
         )
+        await bot.edit_message_text(
+            chat_id=data["chat_id"],
+            message_id=data["message_id"],
+            text=_("List of admins: \n")
+            + "\n".join(["@" + str(user.username) for user in await user_service.get() if user.is_staff]),
+            reply_markup=AdminManagementInlineKeyboard()(),
+        )
+        await state.set_state(FSMSuperAdmin.admin_management_menu)
     elif user.id == current_user.id:
         await bot.answer_callback_query(
             callback_query_id=data["id"],
-            text=_("You cannot revoke your administrator rights\n\nEnter another username or press [back]"),
+            text=_("You cannot revoke your administrator rights"),
             show_alert=True,
         )
+        await bot.edit_message_text(
+            chat_id=data["chat_id"],
+            message_id=data["message_id"],
+            text=_("List of admins: \n")
+            + "\n".join(["@" + str(user.username) for user in await user_service.get() if user.is_staff]),
+            reply_markup=AdminManagementInlineKeyboard()(),
+        )
+        await state.set_state(FSMSuperAdmin.admin_management_menu)
     elif user.is_superuser:
         await bot.answer_callback_query(
             callback_query_id=data["id"],
             text=_(
-                "You can't revoke superadmin administrator rights\n\nTry entering a different username or press [back]",
+                "You can't revoke superadmin administrator rights",
             ),
             show_alert=True,
         )
+        await bot.edit_message_text(
+            chat_id=data["chat_id"],
+            message_id=data["message_id"],
+            text=_("List of admins: \n")
+            + "\n".join(["@" + str(user.username) for user in await user_service.get() if user.is_staff]),
+            reply_markup=AdminManagementInlineKeyboard()(),
+        )
+        await state.set_state(FSMSuperAdmin.admin_management_menu)
     else:
         await user_service.update_role(user.id, False)
         await bot.answer_callback_query(
@@ -447,7 +495,7 @@ async def process_gender_search_input(message: Message, state: FSMContext):
         )
         return
     await message.answer(
-        text=_("Enter a range of years to search for videos in YYYY-YYYY format"),
+        text=_("Enter a year (YYYY) or a range of years (YYYY-YYYY) to search for videos"),
         reply_markup=ReplyKeyboardRemove(),
     )
     await state.set_state(FSMAdmin.fill_year_to_search)
@@ -457,17 +505,22 @@ async def process_gender_search_input(message: Message, state: FSMContext):
 async def process_year_search_input(message: Message, state: FSMContext):
     try:
         years = message.text.split("-")
-        if (2014 <= int(years[0]) <= 2025) and (2014 <= int(years[1]) <= 2025):
+        if len(years) == 1:
             await message.answer(text=_("Enter the number of participants"))
-            await state.update_data(start_year_to_search=int(years[0]), end_year_to_search=int(years[1]))
+            await state.update_data(start_year_to_search=int(years[0]), end_year_to_search=int(years[0]))
             await state.set_state(FSMAdmin.fill_members_to_search)
         else:
-            await message.answer(
-                text=_(
-                    "<b>Invalid range entered</b>\n\n" "Try entering the video search time range again",
-                ),
-                parse_mode="HTML",
-            )
+            if (2014 <= int(years[0]) <= 2025) and (2014 <= int(years[1]) <= 2025):
+                await message.answer(text=_("Enter the number of participants"))
+                await state.update_data(start_year_to_search=int(years[0]), end_year_to_search=int(years[1]))
+                await state.set_state(FSMAdmin.fill_members_to_search)
+            else:
+                await message.answer(
+                    text=_(
+                        "<b>Invalid range entered</b>\n\n" "Try entering the video search time range again",
+                    ),
+                    parse_mode="HTML",
+                )
     except Exception:
         await message.answer(
             text=_(
